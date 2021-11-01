@@ -2,3 +2,6 @@ venv
 db_config.json
 .idea
 .vscode
+__pycache__/
+*.cpython.39.pyc
+lib/
