@@ -7,7 +7,7 @@ __pycache__/
 lib/
 
 /**/*.cpython.39.pyc
-db/__pycache__/
-models/__pycache__/
-repos/__pycache__/
-services/__pycache__/
+db/__pycache__
+models/__pycache__
+repos/__pycache__
+services/__pycache__
