@@ -6,4 +6,4 @@ __pycache__/
 *.cpython.39.pyc
 lib/
 
-**/__pycache__
+**/__pycache__/**
