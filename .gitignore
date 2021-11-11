@@ -8,9 +8,10 @@ lib/
 config.json
 bin/
 lib64
-pyvenv.cf
+pyvenv.cfg
 share/
-g
+
+
 /**/*.cpython.39.pyc
 db/__pycache__
 models/__pycache__
