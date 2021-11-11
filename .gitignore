@@ -5,6 +5,7 @@ db_config.json
 __pycache__/
 *.cpython.39.pyc
 lib/
+config.json
 
 /**/*.cpython.39.pyc
 db/__pycache__
