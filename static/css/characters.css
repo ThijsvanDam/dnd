@@ -1,0 +1,41 @@
+.character-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.character{
+    flex: 0 0 250px;
+    height: 200px;
+    background-color: rgb(255, 216, 137);
+    border-radius: 10px;
+    border: 1px solid rgb(118, 61, 0);
+    padding: 10px;
+    margin: 10px;
+    position: relative;
+    max-width: 500px;
+}
+
+.character > .title {
+    font-family: 'Dalelands Uncial';
+    font-size: 2.4em;
+    text-shadow: 0px 1px 1px white;
+}
+
+.character > .button-group{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+}
+
+.character > .button-group > .button{
+    float: right;
+    margin-left: 5px;
+    padding: 10px 15px;
+    background-color: rgb(118, 61, 0);
+    border-radius: 10px;
+
+    color: white;
+    text-decoration: none;
+
+}

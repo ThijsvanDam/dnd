@@ -1,0 +1,46 @@
+body{
+    color: #282828;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: url('../img/twas.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 10px;
+}
+
+nav {
+    display: flex;  
+    background-color: #282828;
+}
+
+nav > a {
+    flex: 0 2 120px;
+    background-color: #282828;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    height: 50px;
+    line-height: 50px;
+
+    transition: 0.2s;
+
+}
+
+nav > a:hover { 
+    background-color: black;
+}
+
+
+/* nav > a.current {
+    background-color: #d79a4e;
+
+}
+
+nav > a.current :hover {
+    background-color: #bd823b;
+} */
