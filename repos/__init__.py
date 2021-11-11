@@ -1,1 +1,1 @@
-from CharacterRepo import CharacterRepo
+from .CharacterRepo import CharacterRepo

@@ -1,1 +1,1 @@
-from CharacterService import CharacterService
+from .CharacterService import CharacterService

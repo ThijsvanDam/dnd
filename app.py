@@ -1,22 +1,33 @@
 import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from flask import Flask
 
-from db.Db import Db
-from services.CharacterService import CharacterService
-from repos.CharacterRepo import CharacterRepo
+# from flask import Flask
+# from db import Db
+# from repos import CharacterRepo
+from db import Db
+from repos import CharacterRepo
+from services import CharacterService
 
-# db = Db()
-# char_r = CharacterRepo(db)
-# char_s = CharacterService(char_r)
+# import db
+# from services.CharacterServicepy import CharacterService
+# from repos.CharacterRepo import CharacterRepo
+
+db = Db()
+char_r = CharacterRepo(db)
+char_s = CharacterService(char_r)
+
+item = char_r.get_all_characters()
+print(item)
 
 # __init__.py
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-db = SQLAlchemy(app)
+# app = Flask(__name__)
+# a = db.SQLAlchemy(app)
 
 #TODO: https://stackoverflow.com/questions/66716267/lask-cli-noappexception-while-importing-app-an-importerror-was-raised
 
@@ -49,5 +60,5 @@ db = SQLAlchemy(app)
 #
 #     return app
 
-
-create_app()
+# if (__name__ == '__main__'):
+#     create_app()
