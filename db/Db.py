@@ -3,7 +3,7 @@ import mysql
 import json
 from mysql.connector import (connection)
 
-custom_config = json.load(open('./db_config.json'))
+custom_config = json.load(open('./config.json'))['database']
 
 config = {
     'user': custom_config['username'],

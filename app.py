@@ -1,6 +1,5 @@
 import os
-import sys
-# sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
+import json
 
 from flask import Flask, render_template
 from requests.models import parse_header_links
@@ -8,10 +7,11 @@ from db import Db
 from repos import CharacterRepo
 from services import CharacterService
 
-from DndbDataFetcher import DataFetcher
-from DndbDataParser import DataParser
+from data import DataFetcher
+from data import DataParser
 
 
+custom_config = json.load(open('./config.json'))['app']
 db = Db()
 char_r = CharacterRepo(db)
 char_s = CharacterService(char_r)
@@ -39,7 +39,7 @@ def create_app(test_config=None):
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
+        app.config.from_pyfile('flask_config.py', silent=True)
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
@@ -105,7 +105,7 @@ def create_app(test_config=None):
     return app
 
 if (__name__ == '__main__'):
-    create_app().run('127.0.0.1', port=5001)
+    create_app().run(custom_config['ip'], port=int(custom_config['port']))
 
 
 # # db.close()

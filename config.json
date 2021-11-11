@@ -1,0 +1,10 @@
+{
+    "app": {
+        "ip": "127.0.0.1",
+        "port": "5001"
+    },
+    "database": {
+        "username": "root",
+        "password": ""
+    }
+}
