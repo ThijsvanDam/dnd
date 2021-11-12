@@ -25,6 +25,7 @@ dndb_parser = DataParser()
 nav = [
     {'name': 'Home', 'url': '/app'},
     {'name': 'Characters', 'url': '/character/all'},
+    {'name': 'Widgets', 'url': '/widget/all'},
 ]
 
 
@@ -67,9 +68,10 @@ def create_app(test_config=None):
         raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
         parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
         return render_template(
-            'widget/character_widget.html',
+            'widget/character_widget_page.html',
             nav=nav,
-            character=parsed_character_data
+            character=parsed_character_data,
+            isolated=True
         )
 
     @app.route('/character/id/<id>/json')
@@ -101,6 +103,31 @@ def create_app(test_config=None):
             description="This is a list of all characters.",
             characters=characters
         )
+
+    @app.route('/character/widget/all')
+    def widgets():
+        dbCharacters = char_s.get_all_characters()
+        characterList = []
+        for dbCharacter in dbCharacters:
+            raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
+            parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
+            characterList.append(parsed_character_data)
+        
+        return render_template(
+            'widget/character_widgets.html',
+            nav=nav,
+            title="All character widgets",
+            description="This is a list of all character widgets.",
+            characters=characterList
+        )
+
+        # return render_template(
+        #     'characters/characters.html',
+        #     nav=nav,
+        #     title="All characters",
+        #     description="This is a list of all characters.",
+        #     characters=characters
+        # )
 
     return app
 

@@ -1,14 +1,18 @@
 
+.character-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .character-widget {
-    flex: 1 0 200px;
-    /* height: 200px; */
+    flex: 1 0 350px;
     background-color: rgb(255, 216, 137);
     border-radius: 10px;
     border: 1px solid rgb(118, 61, 0);
     padding: 10px;
     margin: 10px;
     position: relative;
-    max-width: 500px;
+    /* max-width: 500px; */
 }
 
 .character-widget > .name {
@@ -34,7 +38,7 @@
 }
 
 .character-widget > .stats > .data {
-    flex: 1 0 200px;
+    flex: 1 0 50%;
     line-height: 30px;
     display: flex;
 }

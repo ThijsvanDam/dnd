@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+  <link href="{{ url_for('static', filename='css/widget.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+
+        <div class="character-list">
+            {% for character in characters  %}
+                {% with character=character, isolated=False %}
+                    {% include 'widget/character_widget.html' %}
+                {% endwith%}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
