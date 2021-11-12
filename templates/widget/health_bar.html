@@ -1,0 +1,17 @@
+
+<!-- <progress class="health" value="{{hp-damage}}" max="{{hp}}"></progress>-->
+
+
+{%set percentage_health = ((hp-damage)/hp) * 100 %} 
+
+<div class="health-bar">
+    {% if percentage_health < 0 %}
+        <div class="health negative" style="width:{{ percentage_health * -1 }}%">
+            {{percentage_health}}%&nbsp;
+        </div>
+    {% else %}
+        <div class="health" style="width: {{ percentage_health }}%">
+            {{percentage_health}}%&nbsp;
+        </div>
+    {% endif %}
+</div>

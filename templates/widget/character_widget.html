@@ -1,12 +1,14 @@
 
 <div class="character-widget">
     <div class="name"> {{ character.name }} </div>
-    <div class="data"> Base HP: {{ character.base_hp }} </div>
-    <div class="data"> Bonus HP: {{ character.bonus_hp }} </div>
-    <div class="data"> Removed HP: {{ character.removed_hp }} </div>
-    <div class="data"> Temp HP: {{ character.temp_hp }} </div>
+
+    {% with hp=character.base_hp, damage=character.removed_hp, temp=character.temp_hp %}
+        {% include 'widget/health_bar.html' %}
+    {% endwith %}
+
+
     {% with stats=character.stats %}
-    {% include 'widget/stats.html' %}
+        {% include 'widget/stats.html' %}
     {% endwith %}
 
     <img class="icon" src="{{character.avatar_url}}">
