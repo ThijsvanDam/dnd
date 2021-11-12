@@ -25,7 +25,7 @@ dndb_parser = DataParser()
 nav = [
     {'name': 'Home', 'url': '/app'},
     {'name': 'Characters', 'url': '/character/all'},
-    {'name': 'Widgets', 'url': '/widget/all'},
+    {'name': 'Widgets', 'url': '/character/widget/all'},
 ]
 
 
