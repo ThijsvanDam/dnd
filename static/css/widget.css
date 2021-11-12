@@ -68,7 +68,7 @@
 }
 
 .health-bar{
-    width: calc(100% - 100px);
+    width: calc(100% - 100px - 10px);
     border: 1px solid black;
     background: red;
     height: 15px;
