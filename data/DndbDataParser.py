@@ -3,25 +3,27 @@ from models.Stats import Stats
 import json
 
 class DataParser:
-
-    dndb_data_map = {
-        'name': {'data': 'name'},
-        'level': { 'data': { 'classes': 'level'}},
-        'avatar_url': {'data': 'avatarUrl'},
-        'base_hp': {'data': 'baseHitPoints'}, # +characterValues, value?
-        'bonus_hp': {'data': 'bonusHitPoints'},
-        'removed_hp': {'data': 'removedHitPoints'},
-        'temp_hp': {'data': 'temporaryHitPoints'},
-        'stats': {
-            'str': { 'data': { 'stats' : {'id': 1, 'value': 'str'}}},
-            'dex': { 'data': { 'stats' : {'id': 2, 'value': 'dex'}}},
-            'con': { 'data': { 'stats' : {'id': 3, 'value': 'con'}}},
-            'int': { 'data': { 'stats' : {'id': 4, 'value': 'int'}}},
-            'wis': { 'data': { 'stats' : {'id': 5, 'value': 'wis'}}},
-            'cha': { 'data': { 'stats' : {'id': 6, 'value': 'cha'}}},
-        }
-    }
-
+    # TODO: Remove this (huge) comment once you emotionally processed the fact that you parse the data in a more generic way but you can't.
+    #  dndb_data_map = {
+    #     'name': {'data': 'name'},
+    #     'level': { 'data': { 'classes': 'level'}},
+    #     'avatar_url': {'data': 'avatarUrl'},
+    #     'base_hp': {'data': 'baseHitPoints'}, # +characterValues, value?
+    #     'bonus_hp': {'data': 'bonusHitPoints'},
+    #     'removed_hp': {'data': 'removedHitPoints'},
+    #     'temp_hp': {'data': 'temporaryHitPoints'},
+    #     'stats': {
+    #         'str': { 'data': { 'stats' : {'id': 1, 'value': 'str'}}},
+    #         'dex': { 'data': { 'stats' : {'id': 2, 'value': 'dex'}}},
+    #         'con': { 'data': { 'stats' : {'id': 3, 'value': 'con'}}},
+    #         'int': { 'data': { 'stats' : {'id': 4, 'value': 'int'}}},
+    #         'wis': { 'data': { 'stats' : {'id': 5, 'value': 'wis'}}},
+    #         'cha': { 'data': { 'stats' : {'id': 6, 'value': 'cha'}}},
+    #     }
+    # }
+    # TODO: Check out the idea to just work with paths like 'level.data.classes.0.level' 
+    # This way you can specify paths AND work with arrays and maybe solve this in a more generic way.
+    
     # def get_data(self, json, data_selector):
 
     #     keys, values = zip(*data_selector.items())
