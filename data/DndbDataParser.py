@@ -2,7 +2,39 @@ from models.Character import Character
 from models.Stats import Stats
 import json
 
+"""
+Parsing dndb json character data to the known Character model.
+"""
 class DataParser:
+
+    def parse_character_data(self, data) -> Character:
+        """
+        This method parses all character data and returns a usable dictionary
+        :param data:
+        :return:
+        """
+        parsed_data = json.loads(data)
+
+        gathered_data = {
+            'name': parsed_data['data']['name'],
+            'level': parsed_data['data']['classes'][0]['level'],
+            'avatar_url': parsed_data['data']['avatarUrl'],
+            'stats': Stats(
+                str = parsed_data['data']['stats'][0]["value"],
+                dex = parsed_data['data']['stats'][1]["value"],
+                con = parsed_data['data']['stats'][2]["value"],
+                int = parsed_data['data']['stats'][3]["value"],
+                wis = parsed_data['data']['stats'][4]["value"],
+                cha = parsed_data['data']['stats'][5]["value"],
+            ),
+            'base_hp': parsed_data['data']['baseHitPoints'],
+            'bonus_hp': parsed_data['data']['bonusHitPoints'],
+            'removed_hp': parsed_data['data']['removedHitPoints'],
+            'temp_hp': parsed_data['data']['temporaryHitPoints']
+        }
+
+        return Character(**gathered_data)
+    
     # TODO: Remove this (huge) comment once you emotionally processed the fact that you parse the data in a more generic way but you can't.
     #  dndb_data_map = {
     #     'name': {'data': 'name'},
@@ -55,32 +87,3 @@ class DataParser:
         #     print("-----RESULT-----")
         #     print(gathered_data)
         #     print("-----NEXT-----")
-
-
-    def parse_character_data(self, data) -> Character:
-        """
-        This method parses all character data and returns a usable dictionary
-        :param data:
-        :return:
-        """
-        parsed_data = json.loads(data)
-
-        gathered_data = {
-            'name': parsed_data['data']['name'],
-            'level': parsed_data['data']['classes'][0]['level'],
-            'avatar_url': parsed_data['data']['avatarUrl'],
-            'stats': Stats(
-                str = parsed_data['data']['stats'][0]["value"],
-                dex = parsed_data['data']['stats'][1]["value"],
-                con = parsed_data['data']['stats'][2]["value"],
-                int = parsed_data['data']['stats'][3]["value"],
-                wis = parsed_data['data']['stats'][4]["value"],
-                cha = parsed_data['data']['stats'][5]["value"],
-            ),
-            'base_hp': parsed_data['data']['baseHitPoints'],
-            'bonus_hp': parsed_data['data']['bonusHitPoints'],
-            'removed_hp': parsed_data['data']['removedHitPoints'],
-            'temp_hp': parsed_data['data']['temporaryHitPoints']
-        }
-
-        return Character(**gathered_data)

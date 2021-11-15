@@ -1,18 +1,18 @@
 from dataclasses import dataclass
 
+"""Statistics 
+"""
 @dataclass
 class Stats:
     str: int
+    strMod: int
     dex: int
+    dexMod: int
     con: int
+    conMod: int
     int: int
+    intMod: int
     wis: int
+    wisMod: int
     cha: int
-
-    def __init__(self, str, dex, con, int, wis, cha):
-        self.str = str
-        self.dex = dex
-        self.con = con
-        self.int = int
-        self.wis = wis
-        self.cha = cha
+    chaMod: int

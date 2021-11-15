@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from abc import ABC
 
+"""Abstract to provide database models an id.
+"""
 @dataclass
-class DbModel:
+class DbModel(ABC):
     id: int
-
-    def __init__(self, id):
-        self.id = id

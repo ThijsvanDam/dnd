@@ -1,7 +1,9 @@
 from typing import Text
 import requests
 
-
+"""
+Provide functionality for actually fetching dndb data.
+"""
 class DataFetcher:
 
     _DNDB_BASE_URL = "https://character-service.dndbeyond.com/character/v3"
