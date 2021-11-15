@@ -2,34 +2,68 @@
 .character-list{
     display: flex;
     flex-wrap: wrap;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(252,252,252,1) 30%, 
+        rgba(252,252,252,1) 70%, 
+        rgba(255,255,255,0) 100%
+    );    
+    padding: 100px 0px;
 }
 
 .character-widget {
     flex: 1 0 350px;
-    background-color: rgb(255, 216, 137);
-    border-radius: 10px;
+    background: linear-gradient(0deg, rgba(23, 23, 23, 1), rgba(50, 50, 50, 1));
+    background-size: contain;
+    border-radius: 30px;
     border: 1px solid rgb(118, 61, 0);
-    padding: 10px;
+    padding: 15px;
     margin: 10px;
     position: relative;
+    color: #eee;
     /* max-width: 500px; */
 }
 
-.character-widget > .name {
-
+.character-widget > .name > a {
     font-family: 'Dalelands Uncial';
     font-size: 2.4em;
-    text-shadow: 0px 1px 1px white;
+    /* text-shadow: 0px 1px 1px rgb(255, 255, 255); */
+    text-decoration: none;
+    /* Force link to inherit color */
+    color: inherit;
+    transition: text-shadow, 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.character-widget > .name > a:hover {
+    text-shadow: 3px 3px 10px rgb(167, 38, 38);
+}
+
+.character-widget > .avatar {
+    --width: 120px;
+    display: grid;
+    position: absolute;
+    top: -20px;
+    right: -20px;
 }
 
 
-.character-widget > .icon {
+.character-widget > .avatar > .icon {
+    width: calc(var(--width) - 10px);
+    grid-area: 1 / 1;
+    margin-top: calc(10px / 2);
+    margin-left: calc(10px / 2);
+    z-index: 10;
+}
 
-    width: 100px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 10px;
+.character-widget > .avatar > .border {
+    width: var(--width);
+    grid-area: 1 / 1;
+    z-index: 20;
+    /* The box shadow and border radius are quite the accident, but it looks pretty cool :p */
+    box-shadow: 0px 0px 7px rgb(255, 136, 0);
+    border-radius: 100px;
 }
 
 .character-widget > .stats {
@@ -45,9 +79,9 @@
 
 
 .character-widget > .stats > .data > .value {
-    color: #eee;
-    background-color: #282828;
+    background-color: #eee;
     border: 1px solid #eee;
+    color: black;
     border-radius: 20px;
     height: 30px;
     width: 30px;
@@ -57,20 +91,16 @@
 }
 
 .health{
-    background: green;
-    /* height: 100%; */
+    background: linear-gradient(rgb(0, 185, 0), rgb(0, 143, 0));
     border-radius: inherit;
     font-size: 0.6em;
-    /* line-height: inherit; */
-    color: #ddd;
     text-align: right;
-    /* padding-right: 5px; */
 }
 
 .health-bar{
-    width: calc(100% - 100px - 10px);
-    border: 1px solid black;
-    background: red;
+    width: calc(100% - 100px);
+    border: 1px solid white;
+    background: linear-gradient(rgb(240, 0, 0), rgb(179, 0, 0));
     height: 15px;
     line-height: 15px;
     border-radius: 30px;
@@ -78,16 +108,5 @@
 }
 
 .negative {
-    background: darkred;
+    background: linear-gradient(rgb(139, 0, 0), rgb(83, 0, 0));
 }
-
-/* progress.health {
-    width: calc(100% - 100px - 10px);
-
-    background-color: #f3f3f3;
-    border: 0;
-    height: 18px;
-    border-radius: 9px;
-} */
-
-

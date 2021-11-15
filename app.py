@@ -97,7 +97,7 @@ def create_app(test_config=None):
         characters = char_s.get_all_characters()
 
         return render_template(
-            'characters/characters.html',
+            'characters/characters_page.html',
             nav=nav,
             title="All characters",
             description="This is a list of all characters.",

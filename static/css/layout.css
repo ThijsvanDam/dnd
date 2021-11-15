@@ -1,15 +1,23 @@
 body{
     color: #282828;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-image: url('../img/twas.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
+    /* background-image: url('../img/twas.png'); */
+    background-image: url('/static/img/wood.jpg');
+    background-size: 200px;
+
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
+    /* background-position: center; */
     margin: 0;
     padding: 0;
 }
 
 .container {
+    color: black;
+}
+
+.container > #pageTitle, .container > #pageDescription{
+    text-shadow: 1px 1px 0px white;
     margin: 10px;
 }
 

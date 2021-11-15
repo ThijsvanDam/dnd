@@ -6,8 +6,8 @@
 
 {% block content %}
     <div class="container">
-        <h1>{{title}}</h1>
-        <p>{{description}}</p>
+        <h1 id="pageTitle">{{title}}</h1>
+        <p id="pageDescription">{{description}}</p>
 
         <div class="character-list">
             {% for character in characters  %}

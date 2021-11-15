@@ -1,6 +1,6 @@
 
 <div class="character-widget">
-    <div class="name"> {{ character.name }} </div>
+    <div class="name"> <a href="{{character.page_url}}"> {{ character.name }} </a></div>
 
     {% with hp=character.base_hp, damage=character.removed_hp, temp=character.temp_hp %}
         {% include 'widget/health_bar.html' %}
@@ -11,5 +11,8 @@
         {% include 'widget/stats.html' %}
     {% endwith %}
 
-    <img class="icon" src="{{character.avatar_url}}">
+    <div class="avatar">
+        <img class="icon" src="{{character.avatar_url}}">
+        <img class="border" src="{{ url_for('static', filename='img/frame.png') }}">
+    </div>
 </div>

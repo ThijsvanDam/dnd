@@ -5,14 +5,14 @@ from dataclasses import dataclass
 @dataclass
 class Stats:
     str: int
-    strMod: int
+    # strMod: int
     dex: int
-    dexMod: int
+    # dexMod: int
     con: int
-    conMod: int
+    # conMod: int
     int: int
-    intMod: int
+    # intMod: int
     wis: int
-    wisMod: int
+    # wisMod: int
     cha: int
-    chaMod: int
+    # chaMod: int

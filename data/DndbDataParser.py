@@ -19,6 +19,7 @@ class DataParser:
             'name': parsed_data['data']['name'],
             'level': parsed_data['data']['classes'][0]['level'],
             'avatar_url': parsed_data['data']['avatarUrl'],
+            'page_url': parsed_data['data']['readonlyUrl'],
             'stats': Stats(
                 str = parsed_data['data']['stats'][0]["value"],
                 dex = parsed_data['data']['stats'][1]["value"],
