@@ -5,7 +5,7 @@ A small Python app for providing DND data.
 - Using `Jinja` to render templates.
 - Using `Dndb` to fetch character data.
 
-# Setup (Unix/macOS)
+# Setup (Unix/macOS with Windows alternatives)
 
 - Install python through `brew install python` 
 - Create virtual environment by running
@@ -25,7 +25,7 @@ A small Python app for providing DND data.
     }
 }
 ```
-- Install mysql by running `brew install mysql`
+- Install mysql by running `brew install mysql` or [for  Windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html)
 - Go to the `scripts` folder in your terminal and run `mysql < databaseAndTables.sql` to create database and tables.
 - Run `mysql < fillDbWithIykwim.sh` to fill with IYKWIM data.
 
