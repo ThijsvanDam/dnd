@@ -34,6 +34,7 @@ A small Python app for providing DND data.
 - Create database and tables by running `source {projectPath}/scripts/databaseAndTables.sql`
   **NOTE: This removes the current database names 'dnd' including its data.**
 - Fill database with iykwim data by running `source {projectPath}/scripts/fillDbWithIykwim.sh`
+
 \--------------------------------------------
 - After creating and filling the database and installing all requirements:
 - Run `python3 app.py` to run the application.
