@@ -37,7 +37,7 @@ A small Python app for providing DND data.
 
 \--------------------------------------------
 - After creating and filling the database and installing all requirements:
-- Run `python3 app.py` to run the application.
+- Run `python app.py` to run the application.
 
 # Package explanation:
 
