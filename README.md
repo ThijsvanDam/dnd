@@ -4,12 +4,13 @@ A small Python app for providing DND data.
 - Using Flask to offer a webserver.
 
 
-# Setup
+# Setup (Unix/macOS)
 
 - Install python3
 - Create virtual environment by running
-`python3 -m venv /path/to/new/virtual/environment`
-- Use venv by running {venvPath}/activate (maybe give runnable permission first through chmod +x {venvPath}/activate)
+`python3 -m venv /path/to/new/virtual/environment` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+- Use venv by running `source {envPath}/bin/activate`
+- Install python packages by running `python3 -m pip install -r ./requirements.txt`
 - Create config.json according to the example:
 ```
 {
@@ -23,7 +24,8 @@ A small Python app for providing DND data.
     }
 }
 ```
-- Create database
+- Create database by running `scripts/createDatabaseAndTables.sh`
+- Fill database with iykwim data by running `scripts/fillDbWithIykwim.sh`
 
 
 # Package explanation:
@@ -56,3 +58,6 @@ Webpages and components used to render pages.
 
 - /examples
 Examples of character data gathered from dndb.
+
+- /scripts
+Scripts that can be run 
