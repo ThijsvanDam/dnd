@@ -4,7 +4,7 @@ import requests
 """
 Provide functionality for actually fetching dndb data.
 """
-class DataFetcher:
+class DndbDataFetchService:
 
     _DNDB_BASE_URL = "https://character-service.dndbeyond.com/character/v3"
 

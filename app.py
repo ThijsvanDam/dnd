@@ -1,15 +1,12 @@
 import os
 import json
+import atexit
 
 from flask import Flask, render_template
 from requests.models import parse_header_links
 from db import Db
 from repos import CharacterRepo
-from services import CharacterService
-
-from data import DataFetcher
-from data import DataParser
-
+from services import CharacterService, DndbDataFetchService as DataFetcher, DndbDataParseService as DataParser
 
 custom_config = json.load(open('./config.json'))['app']
 db = Db()
@@ -132,7 +129,5 @@ def create_app(test_config=None):
     return app
 
 if (__name__ == '__main__'):
+    atexit.register(db.close)
     create_app().run(custom_config['ip'], port=int(custom_config['port']))
-
-
-# # db.close()

@@ -20,8 +20,13 @@ Returns the data in a proper format.
 """
 class Db:
     def __init__(self):
-        self.connection = mysql.connector.connect(**config)
-        self.cursor = self.connection.cursor()
+        try:
+            self.connection = mysql.connector.connect(**config)
+            self.cursor = self.connection.cursor()
+            print("Database connection is established.")
+        except Exception as e:
+            print(f"Could not make database connection: {e}")
+        
 
     def fetch_single(self, query) -> Dict:
         # Always has a single item, so the first item of the cursor can be returned.
@@ -50,3 +55,4 @@ class Db:
     def close(self):
         self.cursor.close()
         self.connection.close()
+        print("Database connection is closed.")

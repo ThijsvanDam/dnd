@@ -5,7 +5,7 @@ import json
 """
 Parsing dndb json character data to the known Character model.
 """
-class DataParser:
+class DndbDataParseService:
 
     def parse_character_data(self, data) -> Character:
         """
