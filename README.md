@@ -1,16 +1,17 @@
 # dnd
 A small Python app for providing DND data.
-- Using a mysql database.
-- Using Flask to offer a webserver.
-
+- Using `Mysql` for a database.
+- Using `Flask` to offer a webserver.
+- Using `Jinja` to render templates.
+- Using `Dndb` to fetch character data.
 
 # Setup (Unix/macOS)
 
-- Install python3 through `brew install python` , I'll assume you use `python3` to access in this setup guide
+- Install python through `brew install python` 
 - Create virtual environment by running
-`python3 -m venv /path/to/new/virtual/environment` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+`python -m venv /path/to/new/virtual/environment` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 - Use venv by running `source {envPath}/bin/activate` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-- Install python packages by running `python3 -m pip install -r ./requirements.txt` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+- Install python packages by running `python -m pip install -r ./requirements.txt` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 - Create config.json according to the example:
 ```
 {
