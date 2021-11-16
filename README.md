@@ -6,7 +6,24 @@ A small Python app for providing DND data.
 
 # Setup
 
-- Edit config.json 
+- Install python3
+- Create virtual environment by running
+`python3 -m venv /path/to/new/virtual/environment`
+- Use venv by running {venvPath}/activate (maybe give runnable permission first through chmod +x {venvPath}/activate)
+- Create config.json according to the example:
+```
+{
+    "app": {
+        "ip": "127.0.0.1",
+        "port": "5001"
+    },
+    "database": {
+        "username": "root",
+        "password": ""
+    }
+}
+```
+- Create database
 
 
 # Package explanation:
