@@ -28,12 +28,13 @@ A small Python app for providing DND data.
 - Install mysql by running `brew install mysql`
 - Go to the `scripts` folder in your terminal and run `mysql < databaseAndTables.sql` to create database and tables.
 - Run `mysql < fillDbWithIykwim.sh` to fill with IYKWIM data.
-/----- alternative to above two steps: -----\
+
+----- alternative to above two steps: -----
 - Open mysql command line by running `mysql` 
 - Create database and tables by running `source {projectPath}/scripts/databaseAndTables.sql`
   **NOTE: This removes the current database names 'dnd' including its data.**
 - Fill database with iykwim data by running `source {projectPath}/scripts/fillDbWithIykwim.sh`
-\-------------------------------------------/
+-------------------------------------------
 - After creating and filling the database and installing all requirements:
 - Run `python3 app.py` to run the application.
 
