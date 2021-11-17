@@ -1,13 +1,16 @@
-# dnd
+# IYKWIM DND CHARACTER LOADER
 A small Python app for providing DND data.
 - Using `Mysql` for a database.
 - Using `Flask` to offer a webserver.
 - Using `Jinja` to render templates.
 - Using `Dndb` to fetch character data.
 
+# Contact
+Feel free to contact me on this github account or on thijsvandamtvd@gmail.com.
+
 # Setup (Unix/macOS with Windows alternatives)
 
-- Install python through `brew install python` 
+- Install python (3+) through `brew install python` 
 - Create virtual environment by running
 `python -m venv /path/to/new/virtual/environment` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 - Use venv by running `source {envPath}/bin/activate` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
@@ -27,7 +30,7 @@ A small Python app for providing DND data.
 ```
 - Install mysql by running `brew install mysql` or [for  Windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html)
 - Go to the `scripts` folder in your terminal and run `mysql < databaseAndTables.sql` to create database and tables.
-- Run `mysql < fillDbWithIykwim.sh` to fill with IYKWIM data.
+- Run `mysql < fillDbWithIykwim.sql` to fill with IYKWIM data.
 
 ----- alternative to above two steps: -----
 - Open mysql command line by running `mysql` 
@@ -72,3 +75,6 @@ Examples of character data gathered from dndb.
 
 - /scripts:
 Scripts that can be run 
+
+- /instance
+A directory that flask uses. Program data like settings are gathered from there.

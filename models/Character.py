@@ -16,6 +16,7 @@ class Character:
     removed_hp: int
     temp_hp: int
     page_url: str
+    
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 

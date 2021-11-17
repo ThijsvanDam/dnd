@@ -9,11 +9,12 @@
         rgba(252,252,252,1) 70%, 
         rgba(255,255,255,0) 100%
     );
-    padding: 100px 0px;
+    padding: 100px 20px;
 }
 
 .character-widget {
-    flex: 1 0 350px;
+    flex: 1 0 400px;
+    max-width: 600px;
     background: linear-gradient(0deg, rgba(23, 23, 23, 1), rgba(50, 50, 50, 1));
     background-size: contain;
     border-radius: 30px;
@@ -22,19 +23,19 @@
     margin: 10px;
     position: relative;
     color: #eee;
-    /* max-width: 500px; */
+    box-shadow: 4px 4px 10px black;
 }
 
 .character-widget > .name > a {
     font-family: 'Dalelands Uncial';
     font-size: 2.4em;
-    width: calc(100% - 20px);
-    /* text-shadow: 0px 1px 1px rgb(255, 255, 255); */
+    width: calc(100% - 100px);
     text-decoration: none;
     /* Force link to inherit color */
     color: inherit;
     transition: text-shadow, 0.2s;
     transition-timing-function: ease-in-out;
+    display: block;
 }
 
 .character-widget > .name > a:hover {
@@ -47,6 +48,7 @@
     position: absolute;
     top: -20px;
     right: -20px;
+    border-radius: 100px;
 }
 
 
@@ -56,6 +58,10 @@
     margin-top: calc(10px / 2);
     margin-left: calc(10px / 2);
     z-index: 10;
+    
+    border-radius: inherit;
+    background: radial-gradient(ellipse at top right, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 0) 100%)
+
 }
 
 .character-widget > .avatar > .border {
@@ -64,7 +70,7 @@
     z-index: 20;
     /* The box shadow and border radius are quite the accident, but it looks pretty cool :p */
     box-shadow: 0px 0px 7px rgb(255, 136, 0);
-    border-radius: 100px;
+    border-radius: inherit;
 }
 
 .character-widget > .stats {
@@ -78,15 +84,25 @@
     display: flex;
 }
 
+.character-widget > .stats > .data > .mod {
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 30px;
+
+}
+
 
 .character-widget > .stats > .data > .value {
     background-color: #eee;
     border: 1px solid #eee;
     color: black;
+    text-align: center;
     border-radius: 20px;
     height: 30px;
     width: 30px;
-    text-align: center;
     line-height: 30px;
 
 }
@@ -96,6 +112,7 @@
     border-radius: inherit;
     font-size: 0.6em;
     text-align: right;
+    min-width: 35px;
 }
 
 .health-bar{

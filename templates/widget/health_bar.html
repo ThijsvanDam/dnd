@@ -3,7 +3,7 @@
 
 <div class="health-bar">
     {% if percentage_health < 0 %}
-        <div class="health negative" style="width:{{ percentage_health * -1 }}%">
+        <div class="health negative" style="width:{{ (percentage_health * -1) }}%">
             {{hp - damage}}/{{hp}} &nbsp;
         </div>
     {% else %}

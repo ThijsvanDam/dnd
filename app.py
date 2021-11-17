@@ -3,27 +3,11 @@ import json
 import atexit
 
 from flask import Flask, render_template
-from requests.models import parse_header_links
+
 from db import Db
 from repos import CharacterRepo
 from services import CharacterService, DndbDataFetchService as DataFetcher, DndbDataParseService as DataParser
 
-custom_config = json.load(open('./config.json'))['app']
-db = Db()
-char_r = CharacterRepo(db)
-char_s = CharacterService(char_r)
-
-fetcher = DataFetcher()
-
-dndb_parser = DataParser()
-
-
-"""Landing page."""
-nav = [
-    {'name': 'Home', 'url': '/app'},
-    {'name': 'Characters', 'url': '/character/all'},
-    {'name': 'Widgets', 'url': '/character/widget/all'},
-]
 
 
 #TODO: https://stackoverflow.com/questions/66716267/lask-cli-noappexception-while-importing-app-an-importerror-was-raised
@@ -129,5 +113,22 @@ def create_app(test_config=None):
     return app
 
 if (__name__ == '__main__'):
+    custom_config = json.load(open('./config.json'))['app']
+    db = Db()
+    char_r = CharacterRepo(db)
+    char_s = CharacterService(char_r)
+
+    fetcher = DataFetcher()
+
+    dndb_parser = DataParser()
+
+
+    """Landing page."""
+    nav = [
+        {'name': 'Home', 'url': '/app'},
+        {'name': 'Characters', 'url': '/character/all'},
+        {'name': 'Widgets', 'url': '/character/widget/all'},
+    ]
+    
     atexit.register(db.close)
     create_app().run(custom_config['ip'], port=int(custom_config['port']))
