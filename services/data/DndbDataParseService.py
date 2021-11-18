@@ -1,5 +1,4 @@
-from models.Character import Character
-from models.Stats import Stats
+from models import Character, Stats, Health
 import json
 
 """
@@ -8,19 +7,20 @@ Parsing dndb json character data to the known Character model.
 class DndbDataParseService:
     
     @staticmethod
-    def get_stats(parsed_data):
+    def parse_stats(parsed_data):
+        data = parsed_data['data']
         # Base stats
         statsList = [
-            parsed_data['data']['stats'][0]["value"],
-            parsed_data['data']['stats'][1]["value"],
-            parsed_data['data']['stats'][2]["value"],
-            parsed_data['data']['stats'][3]["value"],
-            parsed_data['data']['stats'][4]["value"],
-            parsed_data['data']['stats'][5]["value"],
+            data['stats'][0]["value"],
+            data['stats'][1]["value"],
+            data['stats'][2]["value"],
+            data['stats'][3]["value"],
+            data['stats'][4]["value"],
+            data['stats'][5]["value"],
         ]
         
         # Add racial bonus
-        racialModifiersList = parsed_data['data']['modifiers']['race']
+        racialModifiersList = data['modifiers']['race']
         racialScores = list(filter(lambda x: x['subType'].endswith('-score'), racialModifiersList))
         for score in racialScores:
             modId = score['modifierSubTypeId']
@@ -29,12 +29,11 @@ class DndbDataParseService:
         
         # Add class bonus
         invalidClassBonusString = "choose-an-ability-score"
-        classModifiersList = parsed_data['data']['modifiers']['class']
+        classModifiersList = data['modifiers']['class']
         classScores = list(filter(lambda x: (x['subType'].endswith('-score') and x['subType'] != invalidClassBonusString), classModifiersList))
         for score in classScores:
             modId = score['modifierSubTypeId']
             value = score['value']
-            print(f"{score['subType']}: {modId} +{value}")
             statsList[modId - 2] += value
         
         # Todo's based on modifiers from 
@@ -43,7 +42,20 @@ class DndbDataParseService:
         # TODO: Add set score
         # TODO: Add other modifier?
         
+        
         return Stats(*statsList)
+    
+    @staticmethod
+    def parse_health(parsed_data):
+        data = parsed_data['data']
+        healthObject = {
+            'base_hp': data['baseHitPoints'],
+            'bonus_hp': data['bonusHitPoints'],
+            'removed_hp': data['removedHitPoints'],
+            'temp_hp': data['temporaryHitPoints']
+        }
+        return Health(**healthObject)
+        
 
     def parse_character_data(self, data) -> Character:
         """
@@ -58,11 +70,8 @@ class DndbDataParseService:
             'level': parsed_data['data']['classes'][0]['level'],
             'avatar_url': parsed_data['data']['avatarUrl'],
             'page_url': parsed_data['data']['readonlyUrl'],
-            'stats': DndbDataParseService.get_stats(parsed_data=parsed_data),
-            'base_hp': parsed_data['data']['baseHitPoints'],
-            'bonus_hp': parsed_data['data']['bonusHitPoints'],
-            'removed_hp': parsed_data['data']['removedHitPoints'],
-            'temp_hp': parsed_data['data']['temporaryHitPoints']
+            'stats': DndbDataParseService.parse_stats(parsed_data=parsed_data),
+            'health': DndbDataParseService.parse_health(parsed_data=parsed_data)
         }
         
         return Character(**gathered_data)
