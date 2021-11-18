@@ -51,7 +51,6 @@
     border-radius: 100px;
 }
 
-
 .character-widget > .avatar > .icon {
     width: calc(var(--width) - 10px);
     grid-area: 1 / 1;
@@ -91,9 +90,7 @@
     border: 1px solid white;
     border-radius: 20px;
     width: 30px;
-
 }
-
 
 .character-widget > .stats > .data > .value {
     background-color: #eee;
@@ -104,7 +101,6 @@
     height: 30px;
     width: 30px;
     line-height: 30px;
-
 }
 
 .health{

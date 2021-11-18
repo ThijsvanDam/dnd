@@ -12,7 +12,7 @@ class Stats:
     cha: int
     
 
-    def __init__(self, str: int, dex: int, con: int, int: int, wis: int, cha) -> None:
+    def __init__(self, str: int, dex: int, con: int, int: int, wis: int, cha: int) -> None:
         self.str = str
         self.dex = dex
         self.con = con

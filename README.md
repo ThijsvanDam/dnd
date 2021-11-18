@@ -36,7 +36,7 @@ Feel free to contact me on this github account or on thijsvandamtvd@gmail.com.
 - Open mysql command line by running `mysql` 
 - Create database and tables by running `source {projectPath}/scripts/databaseAndTables.sql`
   **NOTE: This removes the current database names 'dnd' including its data.**
-- Fill database with iykwim data by running `source {projectPath}/scripts/fillDbWithIykwim.sh`
+- Fill database with iykwim data by running `source {projectPath}/scripts/fillDbWithIykwim.sql`
 
 \--------------------------------------------
 - After creating and filling the database and installing all requirements:
