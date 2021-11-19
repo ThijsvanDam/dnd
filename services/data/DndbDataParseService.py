@@ -1,4 +1,4 @@
-from models import Character, Stats, Health
+from models import Character, Stats, Health, Saves
 import json
 
 """
@@ -8,19 +8,18 @@ class DndbDataParseService:
     
     @staticmethod
     def parse_stats(parsed_data):
-        data = parsed_data['data']
         # Base stats
         statsList = [
-            data['stats'][0]["value"],
-            data['stats'][1]["value"],
-            data['stats'][2]["value"],
-            data['stats'][3]["value"],
-            data['stats'][4]["value"],
-            data['stats'][5]["value"],
+            parsed_data['stats'][0]["value"],
+            parsed_data['stats'][1]["value"],
+            parsed_data['stats'][2]["value"],
+            parsed_data['stats'][3]["value"],
+            parsed_data['stats'][4]["value"],
+            parsed_data['stats'][5]["value"],
         ]
         
         # Add racial bonus
-        racialModifiersList = data['modifiers']['race']
+        racialModifiersList = parsed_data['modifiers']['race']
         racialScores = list(filter(lambda x: x['subType'].endswith('-score'), racialModifiersList))
         for score in racialScores:
             modId = score['modifierSubTypeId']
@@ -29,7 +28,7 @@ class DndbDataParseService:
         
         # Add class bonus
         invalidClassBonusString = "choose-an-ability-score"
-        classModifiersList = data['modifiers']['class']
+        classModifiersList = parsed_data['modifiers']['class']
         classScores = list(filter(lambda x: (x['subType'].endswith('-score') and x['subType'] != invalidClassBonusString), classModifiersList))
         for score in classScores:
             modId = score['modifierSubTypeId']
@@ -42,19 +41,27 @@ class DndbDataParseService:
         # TODO: Add set score
         # TODO: Add other modifier?
         
-        
         return Stats(*statsList)
     
     @staticmethod
     def parse_health(parsed_data):
-        data = parsed_data['data']
         healthObject = {
-            'base_hp': data['baseHitPoints'],
-            'bonus_hp': data['bonusHitPoints'],
-            'removed_hp': data['removedHitPoints'],
-            'temp_hp': data['temporaryHitPoints']
+            'base_hp': parsed_data['baseHitPoints'],
+            'bonus_hp': parsed_data['bonusHitPoints'],
+            'removed_hp': parsed_data['removedHitPoints'],
+            'temp_hp': parsed_data['temporaryHitPoints'],
+            'total_hp': 0
         }
         return Health(**healthObject)
+    
+    @staticmethod
+    def parse_saves(parsed_data):
+        saveData = {
+            'deathSaves': parsed_data['deathSaves'] or 0,
+            'successSaves': parsed_data['successSaves'] or 0,
+            'isStabilized': parsed_data['isStabilized']
+        }
+        return Saves(**saveData)
         
 
     def parse_character_data(self, data) -> Character:
@@ -63,16 +70,20 @@ class DndbDataParseService:
         :param data:
         :return:
         """
-        parsed_data = json.loads(data)
-
+        parsed_data = json.loads(data)['data']
+        
         gathered_data = {
-            'name': parsed_data['data']['name'],
-            'level': parsed_data['data']['classes'][0]['level'],
-            'avatar_url': parsed_data['data']['avatarUrl'],
-            'page_url': parsed_data['data']['readonlyUrl'],
+            'name': parsed_data['name'],
+            'level': parsed_data['classes'][0]['level'],
+            'avatar_url': parsed_data['avatarUrl'],
+            'page_url': parsed_data['readonlyUrl'],
             'stats': DndbDataParseService.parse_stats(parsed_data=parsed_data),
-            'health': DndbDataParseService.parse_health(parsed_data=parsed_data)
+            'health': DndbDataParseService.parse_health(parsed_data=parsed_data),
+            'saves': DndbDataParseService.parse_saves(parsed_data=parsed_data)
         }
+        
+        # TODO: Think of a better way to do this. Total hp is based on base hp, level and conMod.
+        gathered_data['health'].total_hp = gathered_data['health'].base_hp + (gathered_data['level'] * gathered_data['stats'].conMod)
         
         return Character(**gathered_data)
     

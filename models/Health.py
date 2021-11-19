@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 
 @dataclass
 class Health:
@@ -5,3 +6,4 @@ class Health:
     bonus_hp: int
     removed_hp: int
     temp_hp: int
+    total_hp: int

@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 import json
 
-from .Stats import Stats
-from .Health import Health
+from models import Saves, Stats, Health
 
 """Character model with all data that is supported by the frontend. 
 """
@@ -14,6 +13,7 @@ class Character:
     page_url: str
     stats: Stats
     health: Health
+    saves: Saves
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 

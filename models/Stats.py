@@ -19,16 +19,13 @@ class Stats:
         self.int = int
         self.wis = wis
         self.cha = cha
-        self.strMod: int = self.call_calculate_mod(self.str)
-        self.dexMod: int = self.call_calculate_mod(self.dex)
-        self.conMod: int = self.call_calculate_mod(self.con)
-        self.intMod: int = self.call_calculate_mod(self.int)
-        self.wisMod: int = self.call_calculate_mod(self.wis)
-        self.chaMod: int = self.call_calculate_mod(self.cha)
+        self.strMod: int = Stats.calculate_mod(self.str)
+        self.dexMod: int = Stats.calculate_mod(self.dex)
+        self.conMod: int = Stats.calculate_mod(self.con)
+        self.intMod: int = Stats.calculate_mod(self.int)
+        self.wisMod: int = Stats.calculate_mod(self.wis)
+        self.chaMod: int = Stats.calculate_mod(self.cha)
     
     @staticmethod
     def calculate_mod(stat: int) -> int:
         return math.floor((stat - 10) / 2)
-
-    def call_calculate_mod(self, stat: int) -> int:
-        return self.__class__.calculate_mod(stat)

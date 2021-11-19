@@ -1,10 +1,10 @@
 
 <div class="character-widget">
     <div class="name"> <a href="{{character.page_url}}"> {{ character.name }} </a></div>
-    {% with hp=character.base_hp + ((character.level) * character.stats.conMod), damage=character.removed_hp, temp=character.temp_hp %}
+    {%set health = character.health, saves=characters.saves %}
+    {% with health=health %}
         {% include 'widget/health_bar.html' %}
     {% endwith %}
-
 
     {% with stats=character.stats, level=character.level %}
         {% include 'widget/stats.html' %}

@@ -1,10 +1,19 @@
+{%set hp = health.total_hp %}
+{%set damage = health.removed_hp %}
+
+{%set failed = saves.failCount %}
+{%set success = saves.successCount %}
+{%set stabilized = saves.isStabilized %}
+
 
 {%set percentage_health = ((hp-damage)/hp) * 100 %} 
 
 <div class="health-bar">
     {% if percentage_health < 0 %}
+
         <div class="health negative" style="width:{{ (percentage_health * -1) }}%">
             {{hp - damage}}/{{hp}} &nbsp;
+            <div class="saves"></div>
         </div>
     {% else %}
         <div class="health" style="width: {{ percentage_health }}%">
