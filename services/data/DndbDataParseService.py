@@ -56,10 +56,11 @@ class DndbDataParseService:
     
     @staticmethod
     def parse_saves(parsed_data):
+        saves = parsed_data['deathSaves']
         saveData = {
-            'deathSaves': parsed_data['deathSaves'] or 0,
-            'successSaves': parsed_data['successSaves'] or 0,
-            'isStabilized': parsed_data['isStabilized']
+            'failCount': saves['failCount'] or 0,
+            'successCount': saves['successCount'] or 0,
+            'isStabilized': saves['isStabilized']
         }
         return Saves(**saveData)
         

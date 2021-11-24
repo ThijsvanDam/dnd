@@ -1,8 +1,9 @@
 
 <div class="character-widget">
     <div class="name"> <a href="{{character.page_url}}"> {{ character.name }} </a></div>
-    {%set health = character.health, saves=characters.saves %}
-    {% with health=health %}
+    {%set health = character.health %}
+    {%set saves = character.saves %}
+    {% with health=health, saves=saves %}
         {% include 'widget/health_bar.html' %}
     {% endwith %}
 
