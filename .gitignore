@@ -20,3 +20,4 @@ services/__pycache__
 venv/
 
 config.json
+instance/flask_config.py
