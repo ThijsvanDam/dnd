@@ -124,3 +124,43 @@
 .negative {
     background: linear-gradient(rgb(139, 0, 0), rgb(83, 0, 0));
 }
+
+.save {
+    border-radius: 10px;
+    height: 10px;
+    width: 10px;
+    border: 1px solid gray;
+    background-color: rgb(59, 59, 59);
+    float: right;
+
+}
+
+.save.failedSave {
+    background-color: red;
+    border: 1px solid white;
+}
+
+
+.save.successSave { 
+    background-color: green;
+    border: 1px solid white;
+}
+
+.saveDivider {
+    width: 10px;
+    float: right;
+}
+
+.saves {
+    position: relative;
+    float: right;
+    top: -15px;
+}
+
+.save:nth-child(3){
+    margin-left: 4px;
+}
+
+body { 
+    background-color: red !important;
+}

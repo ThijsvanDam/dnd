@@ -38,4 +38,10 @@
     color: white;
     text-decoration: none;
 
+    transition: background-color, 0.3s;
+
+}
+
+.character > .button-group > .button:hover{
+    background-color: rgb(190, 98, 0);
 }

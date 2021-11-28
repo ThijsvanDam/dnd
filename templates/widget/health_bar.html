@@ -2,22 +2,45 @@
 {%set damage = health.removed_hp %}
 
 {%set failed = saves.failCount %}
-{%set success = saves.successCount %}
-{%set stabilized = saves.isStabilized %}
+{%set failSaveSlots = 3 - failed %}
 
+{%set success = saves.successCount %}
+{%set successSaveSlots = 3 - success %}
+
+{%set stabilized = saves.isStabilized %}
 
 {%set percentage_health = ((hp-damage)/hp) * 100 %} 
 
 <div class="health-bar">
+
     {% if percentage_health < 0 %}
+
+        {% if not stabilized %}
+        <div class="saves">
+            {% for n in range(failSaveSlots) %}
+                <div class="save"> </div>
+            {% endfor %}
+            {% for n in range(failed) %}
+                <div class="save failedSave"> </div>
+            {% endfor %}
+            {% for n in range(successSaveSlots) %}
+                <div class="save"> </div>
+            {% endfor %}
+            {% for n in range(success) %}
+                <div class="save successSave"> </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <div class="health negative" style="width:{{ (percentage_health * -1) }}%">
             {{hp - damage}}/{{hp}} &nbsp;
-            <div class="saves"></div>
         </div>
+
     {% else %}
+    
         <div class="health" style="width: {{ percentage_health }}%">
             {{hp - damage}}/{{hp}} &nbsp;
         </div>
+
     {% endif %}
 </div>
