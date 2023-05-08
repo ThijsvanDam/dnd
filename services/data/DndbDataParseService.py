@@ -76,16 +76,18 @@ class DndbDataParseService:
         
         gathered_data = {
             'name': parsed_data['name'],
-            'level': parsed_data['classes'][0]['level'],
+            'level': sum([i['level'] for i in parsed_data['classes']], 0), # Used to be: parsed_data['classes'][0]['level'], but now also includes multiclassing
             'avatar_url': parsed_data['avatarUrl'],
             'page_url': parsed_data['readonlyUrl'],
             'stats': DndbDataParseService.parse_stats(parsed_data=parsed_data),
             'health': DndbDataParseService.parse_health(parsed_data=parsed_data),
             'saves': DndbDataParseService.parse_saves(parsed_data=parsed_data)
         }
-        
+
         # TODO: Think of a better way to do this. Total hp is based on base hp, level and conMod.
         gathered_data['health'].total_hp = gathered_data['health'].base_hp + (gathered_data['level'] * gathered_data['stats'].conMod)
+
+        # print(gathered_data)
         
         return Character(**gathered_data)
     

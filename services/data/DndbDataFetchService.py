@@ -6,7 +6,7 @@ Provide functionality for actually fetching dndb data.
 """
 class DndbDataFetchService:
 
-    _DNDB_BASE_URL = "https://character-service.dndbeyond.com/character/v3"
+    _DNDB_BASE_URL = "https://character-service.dndbeyond.com/character/v5"
 
     _DNDB_CHARACTER_URL = f"{_DNDB_BASE_URL}/character/"
 

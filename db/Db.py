@@ -19,11 +19,14 @@ Actual connection to the database and performing the queries.
 Returns the data in a proper format.
 """
 class Db:
+    connected = False
+
     def __init__(self):
         try:
             self.connection = mysql.connector.connect(**config)
             self.cursor = self.connection.cursor()
             print("Database connection is established.")
+            self.connected = True
         except Exception as e:
             print(f"Could not make database connection: {e}")
         
@@ -36,11 +39,17 @@ class Db:
         # Convert the cursor stuff to a list of actual data.
         return list(self._perform_query(query))
     
-    
+    def check_connection(self) -> bool:
+        if not self.connected:
+            print("Can't connect to database, restart application and check your config.")
+        return True
+
     """Performs every textual and returns the cursor.
     Note: Actually returns cursor stuff
     """
     def _perform_query(self, query) -> Any:
+        if not self.check_connection(): return
+
         try:
             self.cursor.execute(query)
             # Cursor contains data baout the executed query
@@ -55,4 +64,5 @@ class Db:
     def close(self):
         self.cursor.close()
         self.connection.close()
+        self.connected = False
         print("Database connection is closed.")
