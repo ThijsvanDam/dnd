@@ -4,7 +4,7 @@ import json
 """
 Parsing dndb json character data to the known Character model.
 """
-class DndbDataParseService:
+class DndbDataParseServiceV3:
     
     @staticmethod
     def parse_stats(parsed_data):
@@ -79,9 +79,9 @@ class DndbDataParseService:
             'level': sum([i['level'] for i in parsed_data['classes']], 0), # Used to be: parsed_data['classes'][0]['level'], but now also includes multiclassing
             'avatar_url': parsed_data['avatarUrl'],
             'page_url': parsed_data['readonlyUrl'],
-            'stats': DndbDataParseService.parse_stats(parsed_data=parsed_data),
-            'health': DndbDataParseService.parse_health(parsed_data=parsed_data),
-            'saves': DndbDataParseService.parse_saves(parsed_data=parsed_data)
+            'stats': DndbDataParseServiceV3.parse_stats(parsed_data=parsed_data),
+            'health': DndbDataParseServiceV3.parse_health(parsed_data=parsed_data),
+            'saves': DndbDataParseServiceV3.parse_saves(parsed_data=parsed_data)
         }
 
         # TODO: Think of a better way to do this. Total hp is based on base hp, level and conMod.

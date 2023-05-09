@@ -1,15 +1,24 @@
 from dataclasses import dataclass
+from .Base import Base
 import math
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy import ForeignKey
+
+
 """Statistics 
 """
-@dataclass
-class Stats:
-    str: int
-    dex: int
-    con: int
-    int: int
-    wis: int
-    cha: int
+class Stats(Base):
+    __tablename__ = "stats"
+
+    str: Mapped[int]
+    dex: Mapped[int]
+    con: Mapped[int]
+    int: Mapped[int]
+    wis: Mapped[int]
+    cha: Mapped[int]
+
+    character_id: Mapped[int] = mapped_column(ForeignKey("character.id"))
     
 
     def __init__(self, str: int, dex: int, con: int, int: int, wis: int, cha: int) -> None:
