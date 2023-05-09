@@ -1,7 +1,7 @@
-from dataclasses import dataclass
+from pydantic import BaseModel, Field
 
-@dataclass
-class Saves:
-    failCount: int
-    successCount: int
-    isStabilized: bool
+
+class Saves(BaseModel):
+    fail_count: int = Field(alias="failCount")
+    success_count: int = Field(alias="successCount")
+    is_stabilized: bool = Field(alias="isStabilized")
