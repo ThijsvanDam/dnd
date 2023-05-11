@@ -9,8 +9,7 @@ from db.Db import Db
 from repos.PlayerRepo import PlayerRepo
 
 from services.CharacterService import CharacterService
-from services.data.DndbDataFetchService import DndbDataFetchService as DataFetcher
-from services.data.DndbDataParseServiceV3 import DndbDataParseServiceV3 as DataParser
+from services.beyond.DndbDataFetchService import DndbDataFetchService as DataFetcher
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session

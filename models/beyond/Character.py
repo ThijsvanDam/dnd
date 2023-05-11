@@ -12,6 +12,7 @@ class Decorations(BaseModel):
 class Character(BaseModel):
     """Character model with all data that is supported by the frontend."""
 
+    dndb_id: int = Field(alias="id")
     name: str
     page_url: str = Field(alias="readonlyUrl")
     stats: list[Stats]
