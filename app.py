@@ -4,9 +4,18 @@ import atexit
 
 from flask import Flask, render_template
 
-from db import Db
-from repos import CharacterRepo
-from services import CharacterService, DndbDataFetchService as DataFetcher, DndbDataParseService as DataParser
+from db.Db import Db
+# from repos.CharacterRepo import CharacterRepo
+from repos.PlayerRepo import PlayerRepo
+
+from services.CharacterService import CharacterService
+from services.data.DndbDataFetchService import DndbDataFetchService as DataFetcher
+from services.data.DndbDataParseServiceV3 import DndbDataParseServiceV3 as DataParser
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from models.Player import Player
+# from models.Character import Character
 
 
 
@@ -45,9 +54,10 @@ def create_app(test_config=None):
 
     @app.route('/character/id/<id>')
     def characterById(id: int):
-        dbCharacter = char_s.get_character_with_id(id)
-        raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
-        parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
+        # dbCharacter = char_s.get_character_with_id(id)
+        # raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
+        # parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
+        parsed_character_data = None
         return render_template(
             'widget/character_widget_page.html',
             nav=nav,
@@ -57,16 +67,18 @@ def create_app(test_config=None):
 
     @app.route('/character/id/<id>/json')
     def parsedCharacterDataById(id: int):
-        dbCharacter = char_s.get_character_with_id(id)
-        raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
-        parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
+        # dbCharacter = char_s.get_character_with_id(id)
+        # raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
+        # parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
+        parsed_character_data = None
         return parsed_character_data.toJSON()
 
 
     @app.route('/character/id/<id>/raw')
     def rawCharacterDataById(id: int):
-        dbCharacter = char_s.get_character_with_id(id)
-        raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
+        # dbCharacter = char_s.get_character_with_id(id)
+        # raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
+        raw_character_data = None
         return raw_character_data
 
     @app.route('/character/name/<name>')
@@ -87,13 +99,16 @@ def create_app(test_config=None):
 
     @app.route('/character/widget/all')
     def widgets():
-        dbCharacters = char_s.get_all_characters()
-        characterList = []
-        for dbCharacter in dbCharacters:
-            raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
-            parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
-            characterList.append(parsed_character_data)
-        
+        # dbCharacters = char_s.get_all_characters()
+        # characterList = []
+        # for dbCharacter in dbCharacters:
+        #     if dbCharacter == None:
+        #         continue
+
+        #     raw_character_data = fetcher.get_character(character_id=dbCharacter.dndb_id)
+        #     parsed_character_data = dndb_parser.parse_character_data(raw_character_data)
+        #     characterList.append(parsed_character_data)
+        characterList = [None]
         return render_template(
             'widget/character_widgets.html',
             nav=nav,
@@ -115,8 +130,14 @@ def create_app(test_config=None):
 if (__name__ == '__main__'):
     custom_config = json.load(open('./config.json'))['app']
     db = Db()
-    char_r = CharacterRepo(db)
-    char_s = CharacterService(char_r)
+
+
+    playerRepo = PlayerRepo(db)
+    player = playerRepo.get_player_with_id(1)
+    print(player)
+
+    # char_r = CharacterRepo(db)
+    # char_s = CharacterService(char_r)
 
     fetcher = DataFetcher()
 
@@ -130,5 +151,5 @@ if (__name__ == '__main__'):
         {'name': 'Widgets', 'url': '/character/widget/all'},
     ]
     
-    atexit.register(db.close)
+    # atexit.register(db.close)
     create_app().run(custom_config['ip'], port=int(custom_config['port']))
