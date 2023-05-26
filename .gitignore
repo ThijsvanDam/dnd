@@ -21,3 +21,5 @@ venv/
 
 config.json
 instance/
+
+**/__pycache__/
