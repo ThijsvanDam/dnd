@@ -23,8 +23,8 @@ Returns the data in a proper format.
 class Db:
     connected = False
 
-    def __init__(self):
-        dbConfig = ConfigService().get_database_config()
+    def __init__(self) -> None:
+        dbConfig: dict[str, Any] = ConfigService().get_database_config()
         
         # https://docs.sqlalchemy.org/en/20/tutorial/engine.html#tutorial-engine
         try:
@@ -61,7 +61,7 @@ class Db:
 
     # """Closes the database connection.
     # """
-    def close(self):
+    def close(self) -> None:
         self.connection.close()
         self.connected = False
         print("Database connection is closed.")

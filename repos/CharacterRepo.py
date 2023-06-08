@@ -1,5 +1,5 @@
 from db.Db import Db
-# from models.Character import Character
+from models.Character import Character
 from typing import List
 
 class CharacterRepo:
@@ -7,9 +7,9 @@ class CharacterRepo:
     def __init__(self, db: Db):
         self.db: Db = db
 
-    # def get_all_characters(self) -> List[Character]:
-    #     return [None]
-    #     # return map(lambda x: Character(*x), self.db.fetch_multiple(f'select * from `character`'))
+    def get_all_characters(self) -> List[Character]:
+        # return [None]
+        return map(lambda x: Character(*x), self.db.fetch_multiple(f'select * from `character`'))
 
     # def get_character_with_id(self, character_id: int) -> Character:
     #     return None

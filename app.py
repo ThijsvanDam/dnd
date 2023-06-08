@@ -5,7 +5,7 @@ import atexit
 from flask import Flask, render_template
 
 from db.Db import Db
-# from repos.CharacterRepo import CharacterRepo
+from repos.CharacterRepo import CharacterRepo
 from repos.PlayerRepo import PlayerRepo
 
 from services.CharacterService import CharacterService
@@ -131,13 +131,16 @@ if (__name__ == '__main__'):
     custom_config = json.load(open('./config.json'))['app']
     db = Db()
 
-
     playerRepo = PlayerRepo(db)
-    player = playerRepo.get_player_with_id(1)
+    player: Player = playerRepo.get_player_with_id(1)
     print(player)
 
-    # char_r = CharacterRepo(db)
-    # char_s = CharacterService(char_r)
+    char_r = CharacterRepo(db)
+    char_s = CharacterService(char_r)
+
+    char_r.get_all_characters()
+    for character in char_r.get_all_characters():
+        print(character)
 
     fetcher = DataFetcher()
 
@@ -145,7 +148,7 @@ if (__name__ == '__main__'):
 
 
     """Landing page."""
-    nav = [
+    nav: list[dict[str, str]] = [
         {'name': 'Home', 'url': '/app'},
         {'name': 'Characters', 'url': '/character/all'},
         {'name': 'Widgets', 'url': '/character/widget/all'},
