@@ -10,9 +10,7 @@ class ConfigService(Singleton):
 
     def get_database_config(self):
         return {
-          'user': custom_config['database']['username'],
-          'password': custom_config['database']['password'],
-          'host': '127.0.0.1',
-          'database': 'dnd',
-          'raise_on_warnings': True
+          'path': custom_config['database']['path'],
+          # 'database': 'dnd',
+          # 'raise_on_warnings': True
         }
