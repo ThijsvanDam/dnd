@@ -20,16 +20,17 @@ class Character(Base):
     __tablename__ = "character"
 
     # Character data
-    name: Mapped[str] = mapped_column(String(30))
-    level: Mapped[int]
-    avatar_url: Mapped[str]
-    page_url: Mapped[str]
+
+    name: Mapped[str] = mapped_column(String(30), nullable=True)
+    level: Mapped[int] = mapped_column(nullable=True)
+    avatar_url: Mapped[str] = mapped_column(nullable=True)
+    page_url: Mapped[str] = mapped_column(nullable=True)
 
     # User data
     dndb_id: Mapped[int]
 
     # Db relations
-    player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
+    player_id: Mapped[int] = mapped_column(ForeignKey("player.id"), nullable=True)
     player: Mapped["Player"] = relationship(back_populates="characters")
     stats: Mapped[List["Stats"]] = relationship(
         back_populates="character", cascade="all, delete-orphan"

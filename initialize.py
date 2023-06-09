@@ -8,7 +8,7 @@ from models.Character import Character
 engine: Engine = create_engine("sqlite:///test.db", echo=True)
 
 Player.metadata.create_all(engine)
-# Character.metadata.create_all(engine)
+Character.metadata.create_all(engine)
 
 
 # future:
@@ -43,8 +43,10 @@ characters_tuples: list = [
 
 
 with Session(engine) as session:
-    players: list[Player] = [Player(name, password, role) for id, name, password, role in players_tuples]
-    characters: list[Character] = [Character(name, dndb_id) for id, name, dndb_id in characters_tuples]
+    
+    
+    players: list[Player] = [Player(id=id, name=name, password=password, role=role) for id, name, password, role in players_tuples]
+    characters: list[Character] = [Character(id=id, name=name, dndb_id=dndb_id) for id, name, dndb_id in characters_tuples]
 
     session.add_all(players)
     session.add_all(characters)
