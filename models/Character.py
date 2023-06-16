@@ -16,21 +16,19 @@ if TYPE_CHECKING:
 
 class Character(Base):
     """Character model with all data that is supported by the frontend."""
-
     __tablename__ = "character"
 
     # Character data
-
-    name: Mapped[str] = mapped_column(String(30), nullable=True)
-    level: Mapped[int] = mapped_column(nullable=True)
-    avatar_url: Mapped[str] = mapped_column(nullable=True)
-    page_url: Mapped[str] = mapped_column(nullable=True)
+    name: Mapped[str | None] = mapped_column(String(30))
+    level: Mapped[int | None]
+    avatar_url: Mapped[str | None]
+    page_url: Mapped[str | None]
 
     # User data
     dndb_id: Mapped[int]
 
     # Db relations
-    player_id: Mapped[int] = mapped_column(ForeignKey("player.id"), nullable=True)
+    player_id: Mapped[int | None] = mapped_column(ForeignKey("player.id"))
     player: Mapped["Player"] = relationship(back_populates="characters")
     stats: Mapped[List["Stats"]] = relationship(
         back_populates="character", cascade="all, delete-orphan"

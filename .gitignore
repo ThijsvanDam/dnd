@@ -23,3 +23,5 @@ config.json
 instance/
 
 **/__pycache__/
+
+*.db
