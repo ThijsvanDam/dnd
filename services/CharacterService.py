@@ -1,5 +1,3 @@
-
-
 from typing import List
 from models.Character import Character
 from repos.CharacterRepo import CharacterRepo
