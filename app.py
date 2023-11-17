@@ -140,7 +140,7 @@ if (__name__ == '__main__'):
 
     fetcher = DataFetcher()
 
-    dndb_parser = DataParser()
+    # dndb_parser = DataParser()
 
 
     """Landing page."""

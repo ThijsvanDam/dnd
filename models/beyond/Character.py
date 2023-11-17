@@ -10,7 +10,7 @@ class Decorations(BaseModel):
 
 
 class Character(BaseModel):
-    """Character model with all data that is supported by the frontend."""
+    """Character model with only data that's supported from dnd models."""
 
     dndb_id: int = Field(alias="id")
     name: str

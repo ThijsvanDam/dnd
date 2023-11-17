@@ -22,7 +22,7 @@ class Db:
     connected = False
 
     def __init__(self):
-        configService = ConfigService() 
+        # self.configService = ConfigService() 
         
         # https://docs.sqlalchemy.org/en/20/tutorial/engine.html#tutorial-engine
         
@@ -35,7 +35,6 @@ class Db:
             # self.connected = True
         # except Exception as e:
             # print(f"Could not make database connection: {e}")
-        
 
     def fetch_single(self, query) -> Dict:
         # Always has a single item, so the first item of the cursor can be returned.
@@ -48,6 +47,8 @@ class Db:
     def check_connection(self) -> bool:
         if not self.connected:
             print("Can't connect to database, restart application and check your config.")
+        else:
+            print("Connected to database successfully.")
         return True
 
     # """Performs every textual and returns the cursor.
@@ -56,7 +57,9 @@ class Db:
     def _perform_query(self, query) -> Any:
         if not self.check_connection(): return
 
-        engine = create_engine("sqlite:///../test.db", echo=True)
+        # self.configService.get_database_config
+
+        engine = create_engine("sqlite:///test.db", echo=True)
 
         connection = engine.connect()
         # try: 
