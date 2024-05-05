@@ -1,44 +1,41 @@
-import json
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlmodel import Field, Relationship, SQLModel
 
-from models.Health import Health
-from models.Saves import Saves
-from models.Stats import Stats
-
-from .Base import Base
 
 if TYPE_CHECKING:
-    from .Player import Player
+    from .player import Player
+    from .health import Health
+    from .saves import Saves
+    from .stats import Stats
 
 
-class Character(Base):
+class Character(SQLModel, table=True):
     """Character model with all data that is supported by the frontend."""
-    __tablename__ = "character"
 
-    # Character data
-    name: Mapped[str | None] = mapped_column(String(30))
-    level: Mapped[int | None]
-    avatar_url: Mapped[str | None]
-    page_url: Mapped[str | None]
+    id: int | None = Field(default=None, primary_key=True)
 
     # User data
-    dndb_id: Mapped[int]
+    dndb_id: int
+
+    # Character data
+    name: str
+    level: int
+    avatar_url: str
+    page_url: str
 
     # Db relations
-    player_id: Mapped[int | None] = mapped_column(ForeignKey("player.id"))
-    player: Mapped["Player"] = relationship(back_populates="characters")
-    stats: Mapped[List["Stats"]] = relationship(
-        back_populates="character", cascade="all, delete-orphan"
+    # player_id: int = Field(foreign_key="player.id")
+    # player: "Player" = Relationship(back_populates="characters")
+    health: "Health" = Relationship(
+        back_populates="character",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
     )
-    health: Mapped[List["Health"]] = relationship(
-        back_populates="character", cascade="all, delete-orphan"
+    stats: "Stats" = Relationship(
+        back_populates="character",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
     )
-    saves: Mapped[List["Saves"]] = relationship(
-        back_populates="character", cascade="all, delete-orphan"
+    saves: "Saves" = Relationship(
+        back_populates="character",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
     )
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

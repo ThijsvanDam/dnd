@@ -1,20 +1,15 @@
-from typing import List
-
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import relationship
-
-from models.Character import Character
-
-from .Base import Base
+from sqlmodel import Field, SQLModel, Relationship
+from models.character import Character
 
 
-class Player(Base):
-    __tablename__ = "player"
+class Player(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
 
-    characters: Mapped[List["Character"]] = relationship(
-        back_populates="player", cascade="all, delete-orphan"
+    name: str
+    password: str
+    role: str
+
+    characters: list["Character"] = Relationship(
+        back_populates="player",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
     )
-
-    name: Mapped[str]
-    password: Mapped[str]
-    role: Mapped[str]

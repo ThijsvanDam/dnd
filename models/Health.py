@@ -1,22 +1,22 @@
+from sqlmodel import Relationship, SQLModel, Field
+
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-from .Base import Base
-
 if TYPE_CHECKING:
-    from .Character import Character
+    from .character import Character
 
 
-class Health(Base):
-    __tablename__ = "health"
+class Health(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
 
-    character_id: Mapped[int] = mapped_column(ForeignKey("character.id"))
-    character: Mapped["Character"] = relationship(back_populates="health")
+    base_hp: int
+    bonus_hp: int
+    removed_hp: int
+    temp_hp: int
 
-    base_hp: Mapped[int]
-    bonus_hp: Mapped[int]
-    removed_hp: Mapped[int]
-    temp_hp: Mapped[int]
-    total_hp: Mapped[int]
+    character_id: int = Field(foreign_key="character.id")
+    character: "Character" = Relationship(back_populates="health")
+
+    @property
+    def total_hp(self) -> int:
+        return self.base_hp + self.bonus_hp - self.removed_hp + self.temp_hp

@@ -4,17 +4,17 @@ import atexit
 
 from flask import Flask, render_template
 
-from db.Db import Db
-from repos.CharacterRepo import CharacterRepo
-from repos.PlayerRepo import PlayerRepo
+from db.database import Db
+from controllers.character_controller import CharacterRepo
+from controllers.player_controller import PlayerRepo
 
-from services.CharacterService import CharacterService
-from services.data.DndbDataFetchService import DndbDataFetchService as DataFetcher
-from services.data.DndbDataParseServiceV3 import DndbDataParseServiceV3 as DataParser
+from services.character_service import CharacterService
+from services.data.dnd_beyond_fetch_service import DndbDataFetchService as DataFetcher
+from services.data.dnd_beyond_data_parse_service import DndbDataParseServiceV3 as DataParser
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from models.Player import Player
+from models.player import Player
 
 # from models.Character import Character
 

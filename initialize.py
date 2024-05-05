@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import Engine
 from sqlalchemy.orm import Session
 
-from models.Player import Player
+from models.player import Player
 from models.Character import Character
 
 engine: Engine = create_engine("sqlite:///dnd.db", echo=True)
