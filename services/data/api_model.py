@@ -45,6 +45,39 @@ class DeathSaves(BaseModel):
     is_stabilized: bool = Field(..., alias="isStabilized")
 
 
+class Modifier(BaseModel):
+    type: str
+    sub_type: str = Field(..., alias="subType")
+    value: Optional[int]
+
+
+class Modifiers(BaseModel):
+    race: List[Modifier]
+    class_: List[Modifier] = Field(..., alias="class")
+    background: List[Modifier]
+    item: List[Modifier]
+    feat: List[Modifier]
+    condition: List[Modifier]
+
+    @property
+    def all_modifiers(self) -> List[Modifier]:
+        return (
+            self.race
+            + self.class_
+            + self.background
+            + self.item
+            + self.feat
+            + self.condition
+        )
+
+    def get_bonus_score(self, stat: str) -> int:
+        return sum(
+            modifier.value or 0
+            for modifier in self.all_modifiers
+            if modifier.sub_type == f"{stat}-score"
+        )
+
+
 class Character(BaseModel):
     id: int
     user_id: int = Field(..., alias="userId")
@@ -67,6 +100,38 @@ class Character(BaseModel):
     classes: List[CharacterClass]
     conditions: List[str]
     death_saves: DeathSaves = Field(..., alias="deathSaves")
+    modifiers: Modifiers
+
+    # TODO filter instead of hard index
+    @property
+    def strength(self) -> int:
+        mod = self.modifiers.get_bonus_score("strength")
+        return (self.stats[0].value or 0) + mod
+
+    @property
+    def dexterity(self) -> int:
+        mod = self.modifiers.get_bonus_score("dexterity")
+        return (self.stats[1].value or 0) + mod
+
+    @property
+    def constitution(self) -> int:
+        mod = self.modifiers.get_bonus_score("constitution")
+        return (self.stats[2].value or 0) + mod
+
+    @property
+    def intelligence(self) -> int:
+        mod = self.modifiers.get_bonus_score("intelligence")
+        return (self.stats[3].value or 0) + mod
+
+    @property
+    def wisdom(self) -> int:
+        mod = self.modifiers.get_bonus_score("wisdom")
+        return (self.stats[4].value or 0) + mod
+
+    @property
+    def charisma(self) -> int:
+        mod = self.modifiers.get_bonus_score("charisma")
+        return (self.stats[5].value or 0) + mod
 
 
 class CharacterData(BaseModel):

@@ -1,10 +1,12 @@
 import requests
 
+from models.character import Character as Character
+from models.health import Health
+from models.player import Player
 from models.saves import Saves
 from models.stats import Stats
-from models.health import Health
-from services.data.api_model import CharacterData, Character as ApiCharacter
-from models.character import Character as Character
+from services.data.api_model import Character as ApiCharacter
+from services.data.api_model import CharacterData
 
 
 class DndbDataFetchService:
@@ -17,7 +19,7 @@ class DndbDataFetchService:
     api_version = "v5"
 
     @classmethod
-    def get_character(cls, character_id: str) -> ApiCharacter:
+    def get_character(cls, character_id: int) -> ApiCharacter:
         url = f"{cls._DNDB_BASE_URL}/{cls.api_version}/{cls._DNDB_CHARACTER_DIR}/{character_id}"
         response = requests.get(url)
 

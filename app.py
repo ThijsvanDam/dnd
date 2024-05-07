@@ -5,8 +5,8 @@ import atexit
 from flask import Flask, render_template
 
 from db.database import Db
-from controllers.character_controller import CharacterRepo
-from controllers.player_controller import PlayerRepo
+from controllers.character_controller import CharacterController
+from controllers.player_controller import PlayerController
 
 from services.character_service import CharacterService
 from services.data.dnd_beyond_fetch_service import DndbDataFetchService as DataFetcher
@@ -133,11 +133,11 @@ if __name__ == "__main__":
     with Session(db.engine) as session:
         db.session = session
 
-        playerRepo = PlayerRepo(db)
+        playerRepo = PlayerController(db)
         player: Player = playerRepo.get_player_with_id(1)
         print(player)
 
-        char_r = CharacterRepo(db)
+        char_r = CharacterController(db)
         char_s = CharacterService(char_r)
 
         char_r.get_all_characters()

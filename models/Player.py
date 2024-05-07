@@ -1,5 +1,8 @@
 from sqlmodel import Field, SQLModel, Relationship
-from models.character import Character
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from models.character import Character
 
 
 class Player(SQLModel, table=True):

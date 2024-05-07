@@ -1,14 +1,16 @@
 from typing import Sequence
+
 from sqlmodel import select
+
+from db.database import get_session
 from models.character import Character
-from ..db.database import get_session
-from ..services.data.api_model import Character as ApiCharacter
 from models.health import Health
-from models.stats import Stats
 from models.saves import Saves
+from models.stats import Stats
+from services.data.api_model import Character as ApiCharacter
 
 
-class CharacterRepo:
+class CharacterController:
     def __init__(self):
         self.session = get_session()
 
@@ -47,20 +49,28 @@ class CharacterRepo:
             removed_hp=character_data.removed_hit_points,
             temp_hp=character_data.temporary_hit_points,
         )
-        stats = [
-            Stats(stat_id=stat.id, value=stat.value) for stat in character_data.stats
-        ]
-        saves = [
-            Saves(
-                stat_id=save.id,
-                value=save.value,
-                proficiency=save.proficiency,
-                character=character,
-            )
-            for save in character_data.saves
-        ]
 
-        self.session.add(character)
+        stats = Stats(
+            character_id=character.id,
+            strength=character_data.strength,
+            dexterity=character_data.dexterity,
+            constitution=character_data.constitution,
+            intelligence=character_data.intelligence,
+            wisdom=character_data.wisdom,
+            charisma=character_data.charisma,
+        )
+
+        saves = Saves(
+            character_id=character.id,
+            fail_count=character_data.death_saves.fail_count or 0,
+            succes_count=character_data.death_saves.success_count or 0,
+            is_stabilized=character_data.death_saves.is_stabilized,
+        )
+
+        self.session.add(health)
+        self.session.add(stats)
+        self.session.add(saves)
         self.session.commit()
         self.session.refresh(character)
+
         return character

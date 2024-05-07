@@ -25,8 +25,8 @@ class Character(SQLModel, table=True):
     page_url: str
 
     # Db relations
-    # player_id: int = Field(foreign_key="player.id")
-    # player: "Player" = Relationship(back_populates="characters")
+    player_id: int | None = Field(default=None, foreign_key="player.id")
+    player: "Player" = Relationship(back_populates="characters")
     health: "Health" = Relationship(
         back_populates="character",
         sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},

@@ -5,7 +5,7 @@ from models.player import Player
 from ..db.database import get_session
 
 
-class PlayerRepo:
+class PlayerController:
     def __init__(self):
         self.session = get_session()
 
