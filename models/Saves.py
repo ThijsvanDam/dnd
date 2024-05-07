@@ -13,5 +13,5 @@ class Saves(SQLModel, table=True):
     character: "Character" = Relationship(back_populates="saves")
 
     fail_count: int
-    succes_count: int
+    success_count: int
     is_stabilized: bool

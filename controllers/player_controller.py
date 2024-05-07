@@ -2,7 +2,7 @@ from sqlalchemy import select
 
 from models.player import Player
 
-from ..db.database import get_session
+from db.database import get_session
 
 
 class PlayerController:

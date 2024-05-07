@@ -15,19 +15,16 @@ with app.app_context():
     # Create the tables
     SQLModel.metadata.create_all(engine)
 
-    # Seed the database with known characters
-    character_ids = [
-        48841293,  # Aeyham
-        48841603,  # Sarscov
-        48853773,  # Eluniss
-        48845859,  # Henk
-        54055260,  # Johno
-        48850684,  # Pjotr Vladimir
-        48842849,  # Paloma Pigéon
-        48846746,  # Takata Wakanda
-    ]
+    # The character API returns all characters in the campaign, so we only need to know one character id
+    character_id = 48841293  # Aeyham
 
     character_controller = CharacterController()
+    character = DndbDataFetchService.get_character(character_id)
+    character_ids = [
+        character.character_id for character in character.campaign.characters
+    ]
+
     for character_id in character_ids:
+        print(f"Fetching character with id {character_id}")
         dndb_character = DndbDataFetchService.get_character(character_id)
         _ = character_controller.create_character(dndb_character)

@@ -63,7 +63,7 @@ class CharacterController:
         saves = Saves(
             character_id=character.id,
             fail_count=character_data.death_saves.fail_count or 0,
-            succes_count=character_data.death_saves.success_count or 0,
+            success_count=character_data.death_saves.success_count or 0,
             is_stabilized=character_data.death_saves.is_stabilized,
         )
 

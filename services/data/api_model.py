@@ -1,6 +1,8 @@
 from typing import List, Optional
 from pydantic import BaseModel, HttpUrl, Field
 
+from models import character
+
 
 class Stat(BaseModel):
     id: int
@@ -78,6 +80,20 @@ class Modifiers(BaseModel):
         )
 
 
+class CampaignCharacter(BaseModel):
+    username: str
+    character_id: int = Field(..., alias="characterId")
+    character_name: str = Field(..., alias="characterName")
+    is_assigned_to_player: bool = Field(..., alias="isAssigned")
+
+
+class Campaign(BaseModel):
+    id: int
+    name: str
+    description: str
+    characters: List[CampaignCharacter] = Field(..., alias="characters")
+
+
 class Character(BaseModel):
     id: int
     user_id: int = Field(..., alias="userId")
@@ -101,6 +117,7 @@ class Character(BaseModel):
     conditions: List[str]
     death_saves: DeathSaves = Field(..., alias="deathSaves")
     modifiers: Modifiers
+    campaign: Campaign
 
     # TODO filter instead of hard index
     @property

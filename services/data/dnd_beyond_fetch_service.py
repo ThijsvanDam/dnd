@@ -28,12 +28,3 @@ class DndbDataFetchService:
             f.write(response.content.decode("utf-8"))
 
         return CharacterData.model_validate_json(response.content).data
-
-    @staticmethod
-    def calculate_total_hp(character_data: ApiCharacter) -> int:
-        return (
-            character_data.base_hit_points
-            + (character_data.bonus_hit_points or 0)
-            - character_data.removed_hit_points
-            + character_data.temporary_hit_points
-        )

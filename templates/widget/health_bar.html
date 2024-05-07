@@ -1,13 +1,13 @@
 {%set hp = health.total_hp %}
 {%set damage = health.removed_hp %}
 
-{%set failed = saves.failCount %}
+{%set failed = saves.fail_count %}
 {%set failSaveSlots = 3 - failed %}
 
-{%set success = saves.successCount %}
+{%set success = saves.success_count %}
 {%set successSaveSlots = 3 - success %}
 
-{%set stabilized = saves.isStabilized %}
+{%set stabilized = saves.is_stabilized %}
 
 {%set percentage_health = ((hp-damage)/hp) * 100 %} 
 
@@ -17,13 +17,13 @@
 
         {% if not stabilized %}
         <div class="saves">
-            {% for n in range(failSaveSlots) %}
+            {% for n in range(fail_save_slots) %}
                 <div class="save"> </div>
             {% endfor %}
             {% for n in range(failed) %}
                 <div class="save failedSave"> </div>
             {% endfor %}
-            {% for n in range(successSaveSlots) %}
+            {% for n in range(success_save_slots) %}
                 <div class="save"> </div>
             {% endfor %}
             {% for n in range(success) %}
