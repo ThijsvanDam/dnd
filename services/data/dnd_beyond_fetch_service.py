@@ -1,10 +1,6 @@
 import requests
 
 from models.character import Character as Character
-from models.health import Health
-from models.player import Player
-from models.saves import Saves
-from models.stats import Stats
 from services.data.api_model import Character as ApiCharacter
 from services.data.api_model import CharacterData
 

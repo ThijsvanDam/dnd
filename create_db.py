@@ -27,4 +27,4 @@ with app.app_context():
     for character_id in character_ids:
         print(f"Fetching character with id {character_id}")
         dndb_character = DndbDataFetchService.get_character(character_id)
-        _ = character_controller.create_character(dndb_character)
+        _ = character_controller.create_character_from_api(dndb_character)

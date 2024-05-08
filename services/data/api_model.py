@@ -1,8 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel, HttpUrl, Field
 
-from models import character
-
 
 class Stat(BaseModel):
     id: int

@@ -20,7 +20,7 @@ class Health(SQLModel, table=True):
     @property
     def total_hp(self) -> int:
         return self.base_hp + self.bonus_hp + self.temp_hp
-    
+
     @property
     def current_hp(self) -> int:
         return self.total_hp - self.removed_hp
