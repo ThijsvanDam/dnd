@@ -35,7 +35,7 @@ class Stats(SQLModel, table=True):
         return self.calculate_mod(self.dexterity)
 
     @property
-    def consitution_mod(self) -> int:
+    def constitution_mod(self) -> int:
         return self.calculate_mod(self.constitution)
 
     @property

@@ -19,7 +19,11 @@ class CharacterController:
         return self.session.exec(stmt).all()
 
     def get_character_with_id(self, character_id: int) -> Character | None:
-        stmt = select(Character).where(Character.dndb_id == character_id)
+        stmt = select(Character).where(Character.id == character_id)
+        return self.session.exec(stmt).first()
+    
+    def get_character_with_dndb_id(self, dndb_id: int) -> Character | None:
+        stmt = select(Character).where(Character.dndb_id == dndb_id)
         return self.session.exec(stmt).first()
 
     def get_characters_with_player_id(self, player_id: int) -> Sequence[Character]:
