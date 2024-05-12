@@ -1,7 +1,8 @@
-from .DbCharacter import DbCharacter
-from .DbPlayer import DbPlayer
-from .DbModel import DbModel
-from .Character import Character
-from .Stats import Stats
-from .Health import Health
-from .Saves import Saves
+__all__ = ["Campaign", "Character", "Health", "Player", "Saves", "Stats"]
+
+from .campaign import Campaign
+from .character import Character
+from .health import Health
+from .player import Player
+from .saves import Saves
+from .stats import Stats

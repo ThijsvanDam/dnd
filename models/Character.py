@@ -1,20 +1,47 @@
-from dataclasses import dataclass
-import json
+from typing import TYPE_CHECKING
 
-from models import Saves, Stats, Health
+from sqlmodel import Field, Relationship, SQLModel
 
-"""Character model with all data that is supported by the frontend. 
-"""
-@dataclass
-class Character:
+if TYPE_CHECKING:
+    from .campaign import Campaign
+    from .health import Health
+    from .player import Player
+    from .saves import Saves
+    from .stats import Stats
+
+
+class Character(SQLModel, table=True):
+    """Character model with all data that is supported by the frontend."""
+
+    id: int | None = Field(default=None, primary_key=True)
+
+    # User data
+    dndb_id: int
+
+    # Character data
     name: str
     level: int
     avatar_url: str
     page_url: str
-    stats: Stats
-    health: Health
-    saves: Saves
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+    # Db relations
+    player_id: int | None = Field(default=None, foreign_key="player.id")
+    player: "Player" = Relationship(back_populates="characters")
+
+    health: "Health" = Relationship(
+        back_populates="character",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
+    )
+
+    stats: "Stats" = Relationship(
+        back_populates="character",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
+    )
+
+    saves: "Saves" = Relationship(
+        back_populates="character",
+        sa_relationship_kwargs={"cascade": "all, delete, delete-orphan"},
+    )
+
+    campaign_id: int | None = Field(default=None, foreign_key="campaign.id")
+    campaign: "Campaign" = Relationship(back_populates="characters")

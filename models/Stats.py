@@ -1,31 +1,51 @@
-from dataclasses import dataclass
 import math
-"""Statistics 
-"""
-@dataclass
-class Stats:
-    str: int
-    dex: int
-    con: int
-    int: int
-    wis: int
-    cha: int
-    
+from typing import TYPE_CHECKING
 
-    def __init__(self, str: int, dex: int, con: int, int: int, wis: int, cha: int) -> None:
-        self.str = str
-        self.dex = dex
-        self.con = con
-        self.int = int
-        self.wis = wis
-        self.cha = cha
-        self.strMod: int = Stats.calculate_mod(self.str)
-        self.dexMod: int = Stats.calculate_mod(self.dex)
-        self.conMod: int = Stats.calculate_mod(self.con)
-        self.intMod: int = Stats.calculate_mod(self.int)
-        self.wisMod: int = Stats.calculate_mod(self.wis)
-        self.chaMod: int = Stats.calculate_mod(self.cha)
-    
+from sqlmodel import Field, Relationship, SQLModel
+
+if TYPE_CHECKING:
+    from .character import Character
+
+
+class Stats(SQLModel, table=True):
+    """Statistics"""
+
+    id: int | None = Field(default=None, primary_key=True)
+
+    strength: int
+    dexterity: int
+    constitution: int
+    intelligence: int
+    wisdom: int
+    charisma: int
+
+    character_id: int = Field(foreign_key="character.id")
+    character: "Character" = Relationship(back_populates="stats")
+
     @staticmethod
     def calculate_mod(stat: int) -> int:
         return math.floor((stat - 10) / 2)
+
+    @property
+    def strength_mod(self) -> int:
+        return self.calculate_mod(self.strength)
+
+    @property
+    def dexterity_mod(self) -> int:
+        return self.calculate_mod(self.dexterity)
+
+    @property
+    def constitution_mod(self) -> int:
+        return self.calculate_mod(self.constitution)
+
+    @property
+    def intelligence_mod(self) -> int:
+        return self.calculate_mod(self.intelligence)
+
+    @property
+    def wisdom_mod(self) -> int:
+        return self.calculate_mod(self.wisdom)
+
+    @property
+    def charisma_mod(self) -> int:
+        return self.calculate_mod(self.charisma)
