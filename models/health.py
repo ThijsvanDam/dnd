@@ -7,15 +7,13 @@ if TYPE_CHECKING:
 
 
 class Health(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    character_id: int = Field(foreign_key="character.id", primary_key=True)
+    character: "Character" = Relationship(back_populates="health")
 
     base_hp: int
     bonus_hp: int
     removed_hp: int
     temp_hp: int
-
-    character_id: int = Field(foreign_key="character.id")
-    character: "Character" = Relationship(back_populates="health")
 
     @property
     def total_hp(self) -> int:

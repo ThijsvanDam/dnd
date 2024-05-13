@@ -7,9 +7,7 @@ if TYPE_CHECKING:
 
 
 class Saves(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-
-    character_id: int = Field(foreign_key="character.id")
+    character_id: int = Field(foreign_key="character.id", primary_key=True)
     character: "Character" = Relationship(back_populates="saves")
 
     fail_count: int

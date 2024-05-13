@@ -10,7 +10,8 @@ if TYPE_CHECKING:
 class Stats(SQLModel, table=True):
     """Statistics"""
 
-    id: int | None = Field(default=None, primary_key=True)
+    character_id: int = Field(foreign_key="character.id", primary_key=True)
+    character: "Character" = Relationship(back_populates="stats")
 
     strength: int
     dexterity: int
@@ -18,9 +19,6 @@ class Stats(SQLModel, table=True):
     intelligence: int
     wisdom: int
     charisma: int
-
-    character_id: int = Field(foreign_key="character.id")
-    character: "Character" = Relationship(back_populates="stats")
 
     @staticmethod
     def calculate_mod(stat: int) -> int:

@@ -7,8 +7,8 @@ if TYPE_CHECKING:
 
 
 class Campaign(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    dndb_id: int
+    # Same as campaign ID from DnD Beyond
+    id: int = Field(..., primary_key=True)
 
     name: str
     description: str
