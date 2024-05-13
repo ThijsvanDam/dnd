@@ -19,8 +19,4 @@ class DndbDataFetchService:
         url = f"{cls._DNDB_BASE_URL}/{cls.api_version}/{cls._DNDB_CHARACTER_DIR}/{character_id}"
         response = requests.get(url)
 
-        # Dump to json for debug
-        with open("response.json", "w") as f:
-            f.write(response.content.decode("utf-8"))
-
         return CharacterData.model_validate_json(response.content).data
