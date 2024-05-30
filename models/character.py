@@ -49,3 +49,7 @@ class Character(SQLModel, table=True):
 
     campaign_id: int | None = Field(default=None, foreign_key="campaign.id")
     campaign: "Campaign" = Relationship(back_populates="characters")
+
+    @property
+    def total_spell_slots(self) -> int:
+        return sum(spell_slot.max for spell_slot in self.spell_slots)

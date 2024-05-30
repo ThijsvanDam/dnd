@@ -17,7 +17,7 @@ class Stat(BaseModel):
             "intelligence",
             "wisdom",
             "charisma",
-        ][self.id]
+        ][self.id - 1]
 
 
 class Decorations(BaseModel):
@@ -195,10 +195,20 @@ class Character(BaseModel):
     def model_post_init(self, __context: Any):
         # Calculate the available spell slots because the API does not provide this
         for spell_slot in self.spell_slots:
-            spell_slot.available = (
-                sum(class_.spell_slots[spell_slot.level - 1] for class_ in self.classes)
-                - spell_slot.used
-            )
+            spell_slot.available = 0
+
+            for class_ in self.classes:
+                # NOTE
+                # There is a bug(?) in DnD Beyond where it returns a default array of spell slots if the class doesn't have any
+                # We assume if the class has no spell slots by level 2, then it's the default array and we set it to 0
+                if (
+                    class_.level >= 2
+                    and class_.definition.spell_rules is not None
+                    and sum(class_.definition.spell_rules.level_spell_slots[2]) == 0
+                ):
+                    continue
+
+                spell_slot.available += class_.spell_slots[spell_slot.level - 1]
 
 
 class CharacterData(BaseModel):

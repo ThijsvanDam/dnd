@@ -1,0 +1,14 @@
+{% if character.total_spell_slots != 0 %}
+<div class="spell-slots spell-slots-grid">
+    <div>Spell Slots Used</div>
+    <div class="spell-slot-container">
+        {% for slot in spell_slots %}
+            {% if slot.max != 0 %}
+            <div class="spell-slot">
+                <div class="data">Level {{ slot.level }}: {{ slot.used }} / {{ slot.max }}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
