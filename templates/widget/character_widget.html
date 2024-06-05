@@ -1,6 +1,8 @@
 
 <div class="character-widget">
     <div class="name"> <a href="{{character.page_url}}"> {{ character.name }} </a></div>
+    <div> Level {{ character.level }} </div>    
+
     {%set health = character.health %}
     {%set saves = character.saves %}
     {% with health=health, saves=saves %}
@@ -9,6 +11,10 @@
 
     {% with stats=character.stats, level=character.level %}
         {% include 'widget/stats.html' %}
+    {% endwith %}
+    
+    {% with spell_slots=character.spell_slots %}
+        {% include 'widget/spell_slots.html' %}
     {% endwith %}
 
     <div class="avatar">

@@ -160,3 +160,21 @@
 .save:nth-child(3){
     margin-left: 4px;
 }
+
+.spell-slots {
+    margin-top: 10px;
+}
+
+.spell-slot {
+    border-radius: 10px;
+    border: 1px solid gray;
+    background-color: rgb(59, 59, 59);
+    margin-top: 5px;
+    width: fit-content;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+
+.spell-slot-container {
+    display: flex;
+}

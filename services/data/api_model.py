@@ -1,11 +1,23 @@
-from typing import List, Optional
+from typing import Any, List, Optional
 from pydantic import BaseModel, HttpUrl, Field
 
 
 class Stat(BaseModel):
     id: int
+    # NOTE: "Name" is available in the response, but this is never set by the API
     name: Optional[str] = Field(default=None, alias="name")
     value: Optional[int] = Field(default=None, alias="value")
+
+    def model_post_init(self, __context: Any):
+        # Set the name of the stat based on the ID
+        self.name = [
+            "strength",
+            "dexterity",
+            "constitution",
+            "intelligence",
+            "wisdom",
+            "charisma",
+        ][self.id - 1]
 
 
 class Decorations(BaseModel):
@@ -27,9 +39,15 @@ class Currencies(BaseModel):
     pp: int
 
 
+class SpellRules(BaseModel):
+    level_cantrips_known_maxes: List[int] = Field(..., alias="levelCantripsKnownMaxes")
+    level_spell_slots: List[List[int]] = Field(..., alias="levelSpellSlots")
+
+
 class ClassDefinition(BaseModel):
     name: str
     hit_dice: int = Field(..., alias="hitDice")
+    spell_rules: Optional[SpellRules] = Field(default=None, alias="spellRules")
 
 
 class CharacterClass(BaseModel):
@@ -37,6 +55,20 @@ class CharacterClass(BaseModel):
     is_starting_class: bool = Field(..., alias="isStartingClass")
     hit_dice_used: int = Field(..., alias="hitDiceUsed")
     definition: ClassDefinition
+
+    @property
+    def cantrips_known_max(self) -> int:
+        if self.definition.spell_rules is None:
+            return 0
+
+        return self.definition.spell_rules.level_cantrips_known_maxes[self.level]
+
+    @property
+    def spell_slots(self) -> List[int]:
+        if self.definition.spell_rules is None:
+            return [0] * 9
+
+        return self.definition.spell_rules.level_spell_slots[self.level]
 
 
 class DeathSaves(BaseModel):
@@ -92,6 +124,17 @@ class Campaign(BaseModel):
     characters: List[CampaignCharacter] = Field(..., alias="characters")
 
 
+class SpellSlot(BaseModel):
+    level: int
+    used: int
+    # NOTE: "Available" is available in the response, but this is never set by the API
+    available: int
+
+    @property
+    def max(self) -> int:
+        return self.available + self.used
+
+
 class Character(BaseModel):
     id: int
     user_id: int = Field(..., alias="userId")
@@ -116,6 +159,7 @@ class Character(BaseModel):
     death_saves: DeathSaves = Field(..., alias="deathSaves")
     modifiers: Modifiers
     campaign: Campaign
+    spell_slots: List[SpellSlot] = Field(..., alias="spellSlots")
 
     # TODO filter instead of hard index
     @property
@@ -147,6 +191,24 @@ class Character(BaseModel):
     def charisma(self) -> int:
         mod = self.modifiers.get_bonus_score("charisma")
         return (self.stats[5].value or 0) + mod
+
+    def model_post_init(self, __context: Any):
+        # Calculate the available spell slots because the API does not provide this
+        for spell_slot in self.spell_slots:
+            spell_slot.available = 0
+
+            for class_ in self.classes:
+                # NOTE
+                # There is a bug(?) in DnD Beyond where it returns a default array of spell slots if the class doesn't have any
+                # We assume if the class has no spell slots by level 2, then it's the default array and we set it to 0
+                if (
+                    class_.level >= 2
+                    and class_.definition.spell_rules is not None
+                    and sum(class_.definition.spell_rules.level_spell_slots[2]) == 0
+                ):
+                    continue
+
+                spell_slot.available += class_.spell_slots[spell_slot.level - 1]
 
 
 class CharacterData(BaseModel):
