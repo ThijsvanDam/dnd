@@ -1,6 +1,13 @@
+# .devcontainer/Dockerfile
 
 # Base image for the backend
-FROM python:3.9-slim AS backend
+FROM python:3.9-slim as backend
+
+# Create the vscode user and group
+RUN groupadd -g 1001 vscode \
+    && useradd -u 1001 -g vscode -m vscode \
+    && apt-get update && apt-get install -y sudo \
+    && echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
 # Set the working directory for the backend
 WORKDIR /app/backend
@@ -15,7 +22,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ .
 
 # Base image for the frontend
-FROM node:16 AS frontend
+FROM node:20 as frontend
+
+# Create the vscode user and group
+RUN groupadd -g 1001 vscode \
+    && useradd -u 1001 -g vscode -m vscode \
+    && apt-get update && apt-get install -y sudo \
+    && echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
 # Set the working directory for the frontend
 WORKDIR /app/frontend
@@ -35,6 +48,12 @@ RUN npm run build
 # Final stage: combining backend and frontend
 FROM python:3.9-slim
 
+# Create the vscode user and group
+RUN groupadd -g 1001 vscode \
+    && useradd -u 1001 -g vscode -m vscode \
+    && apt-get update && apt-get install -y sudo \
+    && echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
+    
 # Set the working directory
 WORKDIR /app
 
@@ -59,5 +78,17 @@ COPY entrypoint.sh /usr/local/bin/
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Switch to the vscode user
+USER vscode
+
 # Start supervisord
 CMD ["entrypoint.sh"]
+
+
+
+
+
+
+
+
+
