@@ -102,4 +102,4 @@ if __name__ == "__main__":
         {"name": "Widgets", "url": "/character/widget/all"},
     ]
 
-    create_app(host='0.0.0.0',).run(debug=True)
+    create_app().run(host='0.0.0.0', debug=True)
