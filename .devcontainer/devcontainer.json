@@ -1,16 +1,20 @@
 {
-	"name": "Python & Svelte Dev Container",
-	"dockerFile": "../Dockerfile",
-	"appPort": ["8000:8000", "5000:5000"],
-	"postCreateCommand": "pip install -r /app/backend/requirements.txt && npm install --prefix /app/frontend",
-	"settings": {
-	  "terminal.integrated.shell.linux": "/bin/sh"
-	},
+	"name": "Python-Svelte DevContainer",
+	"dockerFile": "Dockerfile",
+	"context": "..",
+	"appPort": [5000],
 	"extensions": [
 	  "ms-python.python",
-	  "svelte.svelte-vscode"
+	  "svelte.svelte-vscode",
+    "ms-vscode-remote.remote-containers",
+	
 	],
-	"runArgs": ["--init"],
-	"remoteUser": "vscode"
+	"settings": {
+	  "terminal.integrated.shell.linux": "/usr/bin/zsh"
+	},
+	"postCreateCommand": "pip install -r backend/requirements.txt && cd frontend && npm install",
+	"runArgs": [
+	  "--init"
+	],
+	"workspaceFolder": "/workspace"
   }
-  
