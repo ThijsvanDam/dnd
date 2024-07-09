@@ -21,7 +21,27 @@
                 "--no-debugger",
                 "--no-reload"
             ],
-            "jinja": true
+            "jinja": true,
+            "cwd": "${workspaceFolder}/backend"
+        },
+        {
+            "name": "Python: Flask Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "app.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "0"
+            },
+            "args": [
+                "run",
+                "--host","0.0.0.0",
+                "--port","9000",
+                "--debug"
+            ],
+            "jinja": true,
+            "cwd": "${workspaceFolder}/backend"
         }
     ]
 }

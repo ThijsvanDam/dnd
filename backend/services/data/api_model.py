@@ -155,7 +155,7 @@ class Character(BaseModel):
     race: Race
     currencies: Currencies
     classes: List[CharacterClass]
-    conditions: List[str]
+    # conditions: List[str] This is incorrect, API returns list[dict] with an ID for the condition
     death_saves: DeathSaves = Field(..., alias="deathSaves")
     modifiers: Modifiers
     campaign: Campaign
