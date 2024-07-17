@@ -1,48 +1,57 @@
-# IYKWIM DND CHARACTER LOADER
-A small Python app for providing DND data.
-- Using `SQLModel` for database interaction.
-- Using `Flask` to offer a webserver.
-- Using `Jinja` to render templates.
-- Using `Dndb` to fetch character data.
+# Dnd app
 
-# Contact
-Feel free to contact me on this GitHub account or on thijsvandamtvd@gmail.com.
+Iykwim DND app.
 
-# Setup (Unix/macOS with Windows alternatives)
+# DevContainer for Python and Svelte Development
 
-- Install python (3+) through `brew install python` 
-- Create virtual environment by running
-`python -m venv /path/to/new/virtual/environment` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-- Use venv by running `source {envPath}/bin/activate` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-- Install python packages by running `python -m pip install -r ./requirements.txt` or [for Windows](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-- Create config.json according to the example: `{ "app": { "ip": "127.0.0.1", "port": "5001" }, "database": { "username": "root", "password": "" } }`
-- Install SQLite by running `brew install sqlite` or [for Windows](https://www.sqlitetutorial.net/download-install-sqlite/)
-- Run `python create_db.py` to create the database and tables.
-- Run `python app.py` to run the application.
+This repository sets up a development environment using Docker and VS Code DevContainers for developing with Python (Flask) and Svelte. The setup includes optional configurations to switch between SQLite and PostgreSQL databases.
 
-# Package explanation:
+## Prerequisites
 
-- /controllers:
-Classes to handle the database logic of the application.
+- Docker
+- Visual Studio Code
+- Remote - Containers extension for VS Code
 
-- /db:
-Actual connection to the database.
+## Getting Started
 
-- /services:
-All stateless classes performing some sort of action.
-    - /data: All stateless classes performing the gathering dndb data and parsing it.
 
-- /models:
-Dataclasses used to contain data stored in the database.
+### 1. Setup the DevContainer
 
-- /static:
-Css and img data for the webpages and components.
+The development environment is defined using a `Dockerfile` and `docker-compose.yml`. The setup includes:
 
-- /templates:
-Webpages and components used to render pages.
+- Python with Flask and necessary dependencies.
+- Node.js and npm for Svelte.
+- `zsh` with `oh-my-zsh` and the Powerlevel10k theme for a nice terminal experience.
 
-- /examples:
-Examples of character data gathered from dndb.
+### 2. Open the Project in VS Code
 
-- /instance:
-A directory that flask uses. Program data like settings are gathered from there.
+1. Open VS Code.
+2. Install the 'Dev Containers' extension - `ms-vscode-remote.remote-containers`
+3. Restart VS Code
+2. Use the "Remote - Containers" extension to open the project in the container.
+    - Open Command Palette (`Ctrl+Shift+P`).
+    - Search for something like `Reopen and rebuild in container` or select it on the notification you will get on the bottom right.
+
+
+Info: The following commands will be run after the container is created to install the necessary dependencies:
+
+- Python dependencies will be installed from `backend/requirements.txt`.
+- Node.js dependencies will be installed for the Svelte project in the `frontend` directory.
+
+### Key Files
+
+- `.devcontainer/devcontainer.json`: Configuration for the VS Code DevContainer.
+- `.devcontainer/Dockerfile`: Dockerfile to build the development container.
+- `backend/`: Python backend project directory.
+- `frontend/`: Svelte frontend project directory.
+
+## Troubleshooting
+
+If you encounter issues:
+
+1. Ensure Docker is running and you have the latest version.
+2. Ensure the Remote - Containers extension is installed in VS Code.
+3. Check the output in the terminal for any errors during the build process.
+
+Feel free to open an issue if you have any questions or need further assistance.
+
